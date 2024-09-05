@@ -6,7 +6,7 @@ ELC1080, DLSC/CT/UFSM
 turmas CC e SI
 
 professor: Benhur Stein ([benhur+so24b@inf.ufsm.br](mailto:benhur%2bso24b@inf.ufsm.br))\
-terças e quintas, 10h30, sala ???
+terças e quintas, 10h30, sala 1309
 
 ## Desenvolvimento da disciplina
 
@@ -79,5 +79,6 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 
 |    id | assunto
 | ----: | :-----------
+| t0    | [simulador de computador](/Trabalhos/t0)
 
 
