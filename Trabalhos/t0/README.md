@@ -64,13 +64,16 @@ Ao final da execução bem sucedida de uma instrução, caso não seja uma instr
 |---|---|---|---| **controle** |
 |      0 | NOP    | 0    | -         | não faz nada |
 |      1 | PARA   | 0    | err = ERR_CPU_PARADA | para a CPU |
+|---|---|---|---| **acesso à memória** |
 |      2 | CARGI  | 1    | A = A1      | carrega imediato |
 |      3 | CARGM  | 1    | A = mem[A1] | carrega da memória |
 |      4 | CARGX  | 1    | A = mem[A1+X] | carrega indexado |
 |      5 | ARMM   | 1    | mem[A1] = A | armazena na memória |
 |      6 | ARMX   | 1    | mem[A1+X] = A | armazena indexado |
+|---|---|---|---| **acesso a registradores** |
 |      7 | TRAX   | 0    | X ⇄ A       | troca A com X |
 |      8 | CPXA   | 0    | A = X       | copia X para A |
+|---|---|---|---| **aritmética** |
 |      9 | INCX   | 0    | X++       | incrementa X |
 |     10 | SOMA   | 1    | A += mem[A1] | soma |
 |     11 | SUB    | 1    | A -= mem[A1] | subtração |
@@ -78,13 +81,16 @@ Ao final da execução bem sucedida de uma instrução, caso não seja uma instr
 |     13 | DIV    | 1    | A /= mem[A1] | quociente da divisão |
 |     14 | RESTO  | 1    | A %= mem[A1] | resto da divisão |
 |     15 | NEG    | 0    | A = -A       | negação |
+|---|---|---|---| **desvios** |
 |     16 | DESV   | 1    | PC = A1      | desvio |
 |     17 | DESVZ  | 1    | se A for 0, PC = A1 | desvio condicional se zero|
 |     18 | DESVNZ | 1    | se A não for 0, PC = A1 | desvio condicional se não zero |
 |     19 | DESVN  | 1    | se A < 0, PC = A1 | desvio condicional se negativo |
 |     20 | DESVP  | 1    | se A > 0, PC = A1 | desvio condicional se positivo |
+|---|---|---|---| **chamada de subrotina** |
 |     21 | CHAMA  | 1    | mem[A1] = PC+2; PC = A1+1 | chama subrotina |
 |     22 | RET    | 1    | PC = mem[A1] | retorna de subrotina |
+|---|---|---|---| **entrada e saída** |
 |     23 | LE     | 1    | A = es[A1]   | leitura do dispositivo A1 |
 |     24 | ESCR   | 1    | es[A1] = A   | escrita no dispositivo A1 |
 
