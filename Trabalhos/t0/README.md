@@ -47,7 +47,7 @@ A CPU tem três registradores principais:
 - **X**, registrador auxiliar, usado para acessos indexados à memória.
 
 Além desses, tem um registrador de erro, para quando a CPU detecta algum problema, e um registrador complementar, para quando o registrador de erro não é suficiente para codificar o problema.
-Todos os registradores podem conter um valor `int`, e são inicializados em 0.
+Todos os registradores contêm um valor `int`, e são inicializados em 0, exceto o PC, que é inicializado em 100.
 
 
 
@@ -59,43 +59,44 @@ O campo `#arg` da tabela contém 0 para instruções sem argumento (ocupam uma p
 
 Ao final da execução bem sucedida de uma instrução, caso não seja uma instrução de desvio que causou a alteração do PC, o PC é incrementado para apontar para a instrução seguinte (levando em consideração o número de argumentos da instrução).
 
-| código |   nome | #arg | operação  | descrição |
-| -----: | :----- | :--: | :-------- | :-------- |
-|---|---|---|---| **controle** |
-|      0 | NOP    | 0    | -         | não faz nada |
-|      1 | PARA   | 0    | err = ERR_CPU_PARADA | para a CPU |
-|---|---|---|---| **acesso à memória** |
-|      2 | CARGI  | 1    | A = A1      | carrega imediato |
-|      3 | CARGM  | 1    | A = mem[A1] | carrega da memória |
+| código |   nome | #arg | operação     | descrição |
+| -----: | :----- | :--: | :--------    | :-------- |
+|    --- | ---    | ---  | ---          | **controle** |
+|      0 | NOP    | 0    | -            | não faz nada |
+|      1 | PARA   | 0    | erro = ERR_CPU_PARADA | para a CPU |
+|    --- | ---    | ---  | ---          | **acesso à memória** |
+|      2 | CARGI  | 1    | A = A1       | carrega imediato |
+|      3 | CARGM  | 1    | A = mem[A1]  | carrega da memória |
 |      4 | CARGX  | 1    | A = mem[A1+X] | carrega indexado |
-|      5 | ARMM   | 1    | mem[A1] = A | armazena na memória |
+|      5 | ARMM   | 1    | mem[A1] = A  | armazena na memória |
 |      6 | ARMX   | 1    | mem[A1+X] = A | armazena indexado |
-|---|---|---|---| **acesso a registradores** |
-|      7 | TRAX   | 0    | X ⇄ A       | troca A com X |
-|      8 | CPXA   | 0    | A = X       | copia X para A |
-|---|---|---|---| **aritmética** |
-|      9 | INCX   | 0    | X++       | incrementa X |
+|    --- | ---    | ---  | ---          | **acesso a registradores** |
+|      7 | TRAX   | 0    | X ⇄ A        | troca A com X |
+|      8 | CPXA   | 0    | A = X        | copia X para A |
+|    --- | ---    | ---  | ---          | **aritmética** |
+|      9 | INCX   | 0    | X++          | incrementa X |
 |     10 | SOMA   | 1    | A += mem[A1] | soma |
 |     11 | SUB    | 1    | A -= mem[A1] | subtração |
 |     12 | MULT   | 1    | A \*= mem[A1] | multiplicação |
 |     13 | DIV    | 1    | A /= mem[A1] | quociente da divisão |
 |     14 | RESTO  | 1    | A %= mem[A1] | resto da divisão |
 |     15 | NEG    | 0    | A = -A       | negação |
-|---|---|---|---| **desvios** |
+|    --- | ---    | ---  | ---          | **desvios** |
 |     16 | DESV   | 1    | PC = A1      | desvio |
 |     17 | DESVZ  | 1    | se A for 0, PC = A1 | desvio condicional se zero|
 |     18 | DESVNZ | 1    | se A não for 0, PC = A1 | desvio condicional se não zero |
 |     19 | DESVN  | 1    | se A < 0, PC = A1 | desvio condicional se negativo |
 |     20 | DESVP  | 1    | se A > 0, PC = A1 | desvio condicional se positivo |
-|---|---|---|---| **chamada de subrotina** |
+|    --- | ---    | ---  | ---          | **chamada de subrotina** |
 |     21 | CHAMA  | 1    | mem[A1] = PC+2; PC = A1+1 | chama subrotina |
 |     22 | RET    | 1    | PC = mem[A1] | retorna de subrotina |
-|---|---|---|---| **entrada e saída** |
+|    --- | ---    | ---  | ---          | **entrada e saída** |
 |     23 | LE     | 1    | A = es[A1]   | leitura do dispositivo A1 |
 |     24 | ESCR   | 1    | es[A1] = A   | escrita no dispositivo A1 |
 
 A CPU só executa uma instrução se o registrador de erro indicar que a CPU não está em erro (valor ERR_OK).
-A execução de uma instrução pode colocar a CPU em erro, por tentativa de execução de instrução ilegal, acesso a posição inválida de memória, acesso a dispositivo de E/S inexistente, etc. Os códigos de erro estão em err.h.
+A execução de uma instrução pode colocar a CPU em erro, por tentativa de execução de instrução ilegal, acesso a posição inválida de memória, acesso a dispositivo de E/S inexistente, etc. Os códigos de erro estão em err.h.n
+Caso isso aconteça, o valor do PC não é alterado e o código do erro é colocado no registrador de erro. Para alguns erros, um valor adicional é colocado no registrador de complemento de erro (por exemplo, em caso de erro de acesso à memória, é colocado no complemento o endereço que não pode ser acessado).
 
 
 A implementação do simulador está dividida em vários módulos, cada um implementado em um arquivo `.h` que contém a declaração de um tipo opaco e de funções para operar sobre dados desse tipo, e em um arquivo `.c` de mesmo nome, que define o tipo e implementa as funções do `.h`.
@@ -105,11 +106,12 @@ Os módulos são:
 - **memoria**, a memória principal do processador, um vetor de inteiros e funções para acessá-lo
 - **es**, o controlador de E/S, faz o meio campo entre a CPU e os dispositivos de E/S; para que a CPU possa acessar um dispositivo, ele deve antes ser registrado neste módulo
 - **relogio**, conta o número de instruções executadas e disponibiliza esse número e o relógio de tempo real do sistema, em 2 dispositivos de entrada
-- **console**, controla a tela e o teclado reais, implementa terminais, mostra mensagens do sistema e a console do operador (é o módulo mais complicado, e [argh] está implementado usando curses)
+- **terminal**, simula um terminal de vídeo mínimo, com uma linha de entrada e uma de saída
+- **console**, controla a tela e o teclado reais, gerencia os terminais, mostra mensagens do sistema e a console do operador (é o módulo mais complicado, e [argh] está implementado usando curses)
 - **err**, define um tipo para codificar os erros
 - **instrucao**, com nomes e códigos das instruções da CPU
 - **programa**, carrega programas em linguagem de máquina (arquivos .maq) para a memória
-- **main.c**, um programa para testar os módulos acima, inicializa o hardware, carrega um programa na memória e dispara a execução do laço principal do controlador. Como está, ele executará o programa em `ex1.maq`; tem que ser alterado para trocar o programa a executar. A função `main` está nesse arquivo
+- **main.c**, um programa para testar os módulos acima, inicializa o hardware, carrega um programa na memória e dispara a execução do laço principal do controlador. Se não receber argumentos, carregará o programa em `ex1.maq`. Para executar outro programa, execute com o nome do arquivo como argumento (`./main ex2.maq`). A função `main` está nesse arquivo.
 
 Além dos arquivos que implementam o simulador, os demais arquivos são:
 - **montador.c**, um montador para transformar programas .asm (em linguagem de montagem) em .maq (em linguagem de máquina)
@@ -119,7 +121,7 @@ Além dos arquivos que implementam o simulador, os demais arquivos são:
 O make é meio exigente com o formato do Makefile, as linhas que não iniciam na coluna 1 têm que iniciar com um caractere tab.
 Se tiver tendo problemas pra compilar, dá para compilar sem o make, com os comandos:
 ```
-gcc -Wall -Werror main.c cpu.c es.c memoria.c relogio.c console.c instrucao.c err.c programa.c controle.c -lcurses -o main
+gcc -Wall -Werror main.c cpu.c es.c memoria.c relogio.c terminal.c console.c instrucao.c err.c programa.c controle.c -lcurses -o main
 gcc -Wall -Werror montador.c instrucao.c err.c -o montador
 ./montador ex1.asm > ex1.maq
 ./montador ex2.asm > ex2.maq
@@ -130,11 +132,6 @@ gcc -Wall -Werror montador.c instrucao.c err.c -o montador
 ```
 
 
-### Descrição menos sucinta
-
-São dois programas, o montador e o simulador.
-O montador traduz um programa escrito em linguagem de montagem em um programa equivalente em linguagem de máquina (um arquivo com os valores que devem ser colocados na memória da máquina simulada).
-O simulador, tendo a memória inicializada com o programa, executa as instruções, simulando o comportamento de um computador.
 
 #### Montador
 
@@ -143,20 +140,28 @@ O código do montador está no arquivo `montador.c`.
 O montador lê cada linha do arquivo de entrada e traduz nos códigos equivalentes.
 Por exemplo, se a linha contiver ` PARA `, ele vai gerar ` 1 ` (o código da instrução PARA, veja a tabela acima); se a linha contiver ` LE 3 ` ele vai gerar ` 23 3 `.
 
-Além dessas conversões diretas, o montador também pode dar valores a símbolos. Tem duas formas de se fazer isso, definindo explicitamente um símbolo com a pseudo instrução `DEFINE` ou com o uso de labels.
+Além de realizar a montagem das instruções, o montador também entende algumas pseudo instruções, que permitem definir e usar símbolos internos, e manipular mais facilmente o conteúdo de dados. O montador também permite comentários, ignorando o que iniciar por `;` em uma linha.
+
+Usando-se símbolos internos, os programas podem ficar mais legíveis. Tem duas formas de se fazer isso, definindo explicitamente um símbolo com a pseudo instrução `DEFINE` ou com o uso de labels.
 
 Com `DEFINE` pode-se dar nomes a valores constantes. Por exemplo, a instrução ` LE 3 ` pode ser mais facilmente entendida se for escrita ` LE teclado `. Isso pode ser feito definindo `teclado` com o valor `3` com a pseudo instrução ` teclado DEFINE 3 `. É chamada de pseudo instrução porque não é uma instrução do processador, mas uma instrução interna para o montador.
 
 Labels servem para dar nomes para posições de memória. Por exemplo, se quisermos colocar uma instrução que desvie para a instrução ` LE ` acima, temos que saber em que endereço essa instrução está. Com um label, o montador calcula esse endereço. O código abaixo implementa um laço, que executará até que seja lido um valor diferente de zero do dispositivo 2. O label `denovo` será definido com o endereço onde será colocada a instrução `LE`.
+
+Um label só pode iniciar na primeira coluna; uma intrução não pode estar na primeira coluna. Tudo é separado por um ou mais espaços.
 ```
    ...
-   denovo LE 2
-          DESVZ denovo
+   denovo LE 2          ; lê o valor do dispositivo 2 e coloca no reg. A
+          DESVZ denovo  ; se o reg. A for 0, coloca no PC o valor de lenovo
    ...
 ```
 
-Além de `DEFINE`, o montador reconhece as pseudo instruções `VALOR`, `STRING` e `ESPACO`. Elas são usadas para facilitar a inicialização e a reserva de espaço para variáveis do programa. `VALOR` tem um número como argumento, e coloca esse valor na próxima posição da memória. `ESPACO` também tem um número como argumento, que diz quantos zeros serão colocador nas próximas posições da memória. `STRING` define as próximas posições da memória com os valores dos caracteres entre aspas.
-Por exemplo, se o código abaixo for montado no endereço 0, vai colocar o valor 23 (o código de LE) no endereço 0, 3 no endereço 1, 5 no 2 (ARMM), 5 no 3 (y vai ficar no endereço 5), 7 no 4 (VALOR), 0 em 5 e 6 (ESPACO), 65, 48 e 0 em 7, 8 e 9 (STRING).
+Além de `DEFINE`, o montador reconhece as pseudo instruções `VALOR`, `STRING` e `ESPACO`. Elas são usadas para facilitar a inicialização e a reserva de espaço para variáveis do programa.
+- `VALOR` tem um número como argumento, e coloca esse valor na próxima posição da memória.
+- `ESPACO` também tem um número como argumento, que diz quantos zeros serão colocador nas próximas posições da memória (é como se fossem vários "VALOR 0").
+- `STRING` define as próximas posições da memória com os valores dos caracteres entre aspas.
+
+Por exemplo, se o código abaixo for montado no endereço 100, vai colocar o valor 23 (o código de LE) no endereço 100, 3 no endereço 101, 5 no 102 (ARMM), 105 no 103 (y vai ficar no endereço 105), 7 no 104 (VALOR), 0 em 105 e 106 (ESPACO), 65, 48 e 0 em 107, 108 e 109 (STRING).
 ```
    LE 3
    ARMM y
@@ -166,10 +171,10 @@ y  ESPACO 2
 ```
 A saída do montador para a entrada acima é:
 ```
-MAQ 10 0
-[   0] = 23, 3, 5, 5, 7, 0, 0, 65, 48, 0,
+MAQ 10 100
+[ 100] = 23, 3, 5, 105, 7, 0, 0, 65, 48, 0,
 ```
-A primeira linha diz que é um arquivo MAQ, que ocupa 10 posições de memória a partir do endereço 0. 
+A primeira linha diz que é um arquivo MAQ, que ocupa 10 posições de memória a partir do endereço 100.
 As linhas seguintes têm o endereço e o valor de até 10 posições.
 A leitura desse arquivo pode ser feita por código em "programa.c".
 
