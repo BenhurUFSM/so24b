@@ -1,4 +1,4 @@
-## t0 - simulador de uma CPU
+## t0 - simulador de um computador
 
 Familiarize-se com o código anexo, que simula um pequeno computador, que será usado durante o desenvolvimento da disciplina.
 
@@ -61,7 +61,7 @@ Ao final da execução bem sucedida de uma instrução, caso não seja uma instr
 
 | código |   nome | #arg | operação  | descrição |
 | -----: | :----- | :--: | :-------- | :-------- |
-||||| **controle** |
+|---|---|---|---| **controle** |
 |      0 | NOP    | 0    | -         | não faz nada |
 |      1 | PARA   | 0    | err = ERR_CPU_PARADA | para a CPU |
 |      2 | CARGI  | 1    | A = A1      | carrega imediato |
