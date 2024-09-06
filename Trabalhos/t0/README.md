@@ -1,4 +1,4 @@
-## t0 - simulador de um computador
+# t0 - simulador de um computador
 
 Familiarize-se com o código anexo, que simula um pequeno computador, que será usado durante o desenvolvimento da disciplina.
 
@@ -10,26 +10,30 @@ Altere o programa de adivinhação para usar esse dispositivo.
 Para auxiliar mais ainda na familiarização com a CPU, implemente um programa que lê 10 valores desse novo dispositivo e imprime os 10 valores no terminal. Pode aumentar o grau de dificuldade imprimindo eles em ordem crescente.
 
 
-### Descrição sucinta do código fornecido
+## Descrição do código fornecido
 
-Esta descrição é sucinta e incompleta. Olhe o código, faça perguntas. Quanto mais se familiarizar com este código, mais fácil será realizar os trabalhos. As perguntas recebidas (e suas respostas) serão colocadas no final deste texto.
+Esta descrição é incompleta.
+Leia o código, faça perguntas.
+As perguntas recebidas (e suas respostas) serão colocadas no final deste texto.
+Quanto mais se familiarizar com este código, mais fácil será realizar os trabalhos.
+Quanto antes isso for feito, maiores as chances de sucesso na disciplina.
 
 O código implementa dois programas: um simulador de uma CPU bem simples e um montador, para produzir código em linguagem de máquina para essa CPU à partir de programas em linguagem de montagem (a implementação de um compilador fica como sugestão de exercício para quem estiver com um tempinho livre). São disponibilizados também alguns programas exemplo, escritos em linguagem de montagem, que podem ser montados pelo montador e executados no simulador.
 
-#### O hardware simulado
+### O hardware simulado
 
 O computador simulado é constituído de três partes:
 - a memória, que contém instruções e dados,
 - o subsistema de entrada e saída, que permite comunicação externa,
 - a unidade central de processamento, que executa as instruções, manipula e movimenta os dados entre as demais unidades.
 
-##### Memória
+#### Memória
 
 A memória é organizada como um vetor de `int`, endereçados a partir de 0.
 A memória é utilizada para conter os programas e os dados acessáveis pela CPU.
 As primeiras 100 posições de memória são reservadas para uso interno da CPU, e não devem ser usadas pelos programas. Por enquanto, a CPU não faz uso dessas posições (mas fará no t1).
 
-##### Entrada e saída
+#### Entrada e saída
 
 O acesso aos dispositivos de E/S pela CPU é feito por meio de um controlador de E/S, que mapeia a identificação dos dispositivos reconhecidos pela CPU no código que implementa esses dispositivos. Para ser acessável pela CPU, um dispositivo deve antes ser registrado no controlador de E/S. Esse registro é realizado na inicialização do simulador.
 
@@ -45,7 +49,7 @@ Essa interface permite realizar entrada e saída nos terminais e também control
 A console está implementada usando a biblioteca "curses".
 Caso tenha problemas para compilar com curses, pode alterar as funções tela_* de console.c para usar outra biblioteca.
 
-##### CPU
+#### CPU
 
 A CPU é dividida na unidade de execução e na unidade de controle. A unidade de execução contém os registradores e sabe executar cada instrução reconhecida pela CPU. A unidade de controle contém o laço principal de execução, que ordena a execução de uma instrução por vez, a execução das funções que permitem o funcionamento das demais unidades simuladas e o controle da simulação em geral, atendendo os comandos do operador realizados na console.
 
@@ -107,7 +111,7 @@ Os códigos de erro estão em `err.h`.
 Caso isso aconteça, o valor do PC não é alterado e o código do erro é colocado no registrador de erro.
 Para alguns erros, um valor adicional é colocado no registrador de complemento de erro (por exemplo, em caso de erro de acesso à memória, é colocado no complemento o endereço que causou erro de acesso).
 
-#### Compilação e execução
+### Compilação e execução
 
 A compilação é realizada pelo programa `make`, que por sua vez é controlado pelo arquivo `Makefile`. Basta copiar os arquivos do github para um diretório e executar
 ```sh
@@ -158,11 +162,81 @@ Existem 3 comandos para controle dos terminais e 4 para controle da execução:
 - **C**, o controlador vai continuar a execução das instruções uma após a outra
 - **F**, fim da simulação
 
-#### Implementação
+### Linguagem de montagem
+
+A entrada do montador é um arquivo contendo um programa em linguagem de montagem.
+Esse programa é um texto em ASCII, dividido em linhas.
+O caractere `;` e todos que o seguem em uma linha são ignorados pelo montador.
+Linhas em branco são também ignoradas.
+
+Uma linha não ignorada é constituída de 3 partes, separadas por espaços:
+- label
+- instrução ou pseudo-instrução
+- argumento da instrução
+
+O label pode ser qualquer palavra, que não seja uma instrução válida e que ainda não tenha sido utilizada como label.
+O label, se presente, deve iniciar na primeira coluna da linha.
+
+A instrução pode ser o nome de uma instrução (coluna `nome` na tabela de instruções) ou uma das pseudo-instruções reconhecidas pelo montador (`DEFINE`, `VALOR`, `ESPACO` ou `STRING`).
+A instrução, se presente, não pode iniciar na primeira coluna da linha.
+
+O argumento da instrução deve sempre seguir a instrução, e os argumentos válidos dependem da instrução.
+
+O montador tem internamente um valor que corresponde ao endereço de montagem da próxima instrução. É o endereço na memória do processador onde será colocada a próxima instrução montada, quando o programa for executado. Esse valor é inicializado em 100 pelo montador, ou pode ser mudado para outro valor passando a opção `-e valor` para o montador.
+
+O montador lê cada linha do arquivo de entrada e traduz nos códigos equivalentes. Por exemplo, se a linha contiver ` PARA`, ele vai gerar o valor `1` (o código da instrução PARA) no endereço de montagem; se a linha contiver ` LE 3` ele vai gerar `23 3` nos próximos dois endereços.
+
+Um label define um valor para um símbolo. Esse valor será o endereço de montagem da próxima instrução ou um outro valor, se o label for imediatamente seguido da pseudo instrução `DEFINE`. Nesse caso, o valor do label será definido como o valor do argumento.
+Por exemplo,
+`xis define 12` definirá o valor 12 para o símbolo `xis`.
+
+Usando-se símbolos internos, os programas podem ficar mais legíveis.
+Por exemplo, a instrução `LE 3` pode ser mais facilmente entendida se for escrita `LE teclado`, supondo que e teclado corresponda ao dispositivo 3. Isso pode ser feito definindo teclado com o valor 3 com a pseudo instrução `teclado DEFINE 3`.
+
+Labels também servem para dar nomes para posições de memória. Por exemplo, se quisermos colocar uma instrução que desvie para a instrução ` LE ` acima, temos que saber em que endereço essa instrução está. Com um label na instrução, o montador atribui esse endereço para o símbolo. O código abaixo implementa um laço, que executará até que seja lido um valor diferente de zero do dispositivo 2. O label `denovo` será definido com o endereço onde será colocada a instrução `LE`.
+
+```
+   ...
+   denovo LE 2          ; lê o valor do dispositivo 2 e coloca no reg. A
+          DESVZ denovo  ; se o reg. A for 0, desvia para a instrução em denovo
+   ...
+```
+
+Além de `DEFINE`, o montador reconhece as pseudo instruções `VALOR`, `STRING` e `ESPACO`. Elas são usadas para facilitar a inicialização e a reserva de espaço para variáveis do programa.
+- `VALOR` tem um número como argumento, e coloca esse valor na próxima posição da memória.
+- `ESPACO` também tem um número como argumento, que diz quantos zeros serão colocados nas próximas posições da memória (é como se fossem vários `VALOR 0`).
+- `STRING` define as próximas posições da memória com os valores ASCII dos caracteres entre aspas, seguido de um valor 0.
+
+Por exemplo, se o código abaixo for montado no endereço 100, cada linha vai gerar:
+- linha 1: nada, só define o símbolo tecl,
+- linha 2: o valor 23 (o código de LE) no endereço 100, 3 (o valor definido para tecl) no endereço 101,
+- linha 3: 5 no 102 (ARMM), 105 no 103 (y vai ficar no endereço 105),
+- linha 4: 7 no 104 (VALOR),
+- linha 5: 0 em 105 e 106 (ESPACO),
+- linha 6: 65, 48 e 0 em 107, 108 e 109 (STRING).
+```
+tecl DEFINE 3
+     LE tecl
+     ARMM y
+     VALOR 7
+y    ESPACO 2
+     STRING 'A0'
+```
+A saída do montador para a entrada acima é:
+```
+MAQ 10 100
+[ 100] = 23, 3, 5, 105, 7, 0, 0, 65, 48, 0,
+```
+A primeira linha diz que é um arquivo MAQ, que ocupa 10 posições de memória a partir do endereço 100.
+As linhas seguintes têm o endereço e o valor de até 10 posições.
+A leitura desse arquivo pode ser feita por código em "programa.c".
+
+
+### Implementação
 
 A implementação do simulador está dividida em vários módulos, cada um implementado em um arquivo `.h` que contém a declaração de um tipo opaco e de funções para operar sobre dados desse tipo, e em um arquivo `.c` de mesmo nome, que define o tipo e implementa as funções do `.h`.
 Os módulos são:
-- **controle**, o controlador da execução do hardware, contém o laço de execução das instruções
+- **controle**, o controlador daxecução do hardware, contém o laço de execução das instruções
 - **cpu**, o executor de instruções, contém os registradores da CPU e o código para execução de cada instrução
 - **memoria**, a memória principal do processador, um vetor de inteiros e funções para acessá-lo
 - **es**, o controlador de E/S, faz o meio campo entre a CPU e os dispositivos de E/S; para que a CPU possa acessar um dispositivo, ele deve antes ser registrado neste módulo
@@ -193,51 +267,6 @@ gcc -Wall -Werror montador.c instrucao.c err.c -o montador
 ```
 
 
-
-#### Montador
-
-O código do montador está no arquivo `montador.c`.
-
-O montador lê cada linha do arquivo de entrada e traduz nos códigos equivalentes.
-Por exemplo, se a linha contiver ` PARA `, ele vai gerar ` 1 ` (o código da instrução PARA, veja a tabela acima); se a linha contiver ` LE 3 ` ele vai gerar ` 23 3 `.
-
-Além de realizar a montagem das instruções, o montador também entende algumas pseudo instruções, que permitem definir e usar símbolos internos, e manipular mais facilmente o conteúdo de dados. O montador também permite comentários, ignorando o que iniciar por `;` em uma linha.
-
-Usando-se símbolos internos, os programas podem ficar mais legíveis. Tem duas formas de se fazer isso, definindo explicitamente um símbolo com a pseudo instrução `DEFINE` ou com o uso de labels.
-
-Com `DEFINE` pode-se dar nomes a valores constantes. Por exemplo, a instrução ` LE 3 ` pode ser mais facilmente entendida se for escrita ` LE teclado `. Isso pode ser feito definindo `teclado` com o valor `3` com a pseudo instrução ` teclado DEFINE 3 `. É chamada de pseudo instrução porque não é uma instrução do processador, mas uma instrução interna para o montador.
-
-Labels servem para dar nomes para posições de memória. Por exemplo, se quisermos colocar uma instrução que desvie para a instrução ` LE ` acima, temos que saber em que endereço essa instrução está. Com um label, o montador calcula esse endereço. O código abaixo implementa um laço, que executará até que seja lido um valor diferente de zero do dispositivo 2. O label `denovo` será definido com o endereço onde será colocada a instrução `LE`.
-
-Um label só pode iniciar na primeira coluna; uma intrução não pode estar na primeira coluna. Tudo é separado por um ou mais espaços.
-```
-   ...
-   denovo LE 2          ; lê o valor do dispositivo 2 e coloca no reg. A
-          DESVZ denovo  ; se o reg. A for 0, coloca no PC o valor de lenovo
-   ...
-```
-
-Além de `DEFINE`, o montador reconhece as pseudo instruções `VALOR`, `STRING` e `ESPACO`. Elas são usadas para facilitar a inicialização e a reserva de espaço para variáveis do programa.
-- `VALOR` tem um número como argumento, e coloca esse valor na próxima posição da memória.
-- `ESPACO` também tem um número como argumento, que diz quantos zeros serão colocador nas próximas posições da memória (é como se fossem vários "VALOR 0").
-- `STRING` define as próximas posições da memória com os valores dos caracteres entre aspas.
-
-Por exemplo, se o código abaixo for montado no endereço 100, vai colocar o valor 23 (o código de LE) no endereço 100, 3 no endereço 101, 5 no 102 (ARMM), 105 no 103 (y vai ficar no endereço 105), 7 no 104 (VALOR), 0 em 105 e 106 (ESPACO), 65, 48 e 0 em 107, 108 e 109 (STRING).
-```
-   LE 3
-   ARMM y
-   VALOR 7
-y  ESPACO 2
-   STRING 'A0'
-```
-A saída do montador para a entrada acima é:
-```
-MAQ 10 100
-[ 100] = 23, 3, 5, 105, 7, 0, 0, 65, 48, 0,
-```
-A primeira linha diz que é um arquivo MAQ, que ocupa 10 posições de memória a partir do endereço 100.
-As linhas seguintes têm o endereço e o valor de até 10 posições.
-A leitura desse arquivo pode ser feita por código em "programa.c".
 
 #### Simulador
 
