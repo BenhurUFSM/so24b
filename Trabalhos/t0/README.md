@@ -2,16 +2,6 @@
 
 Familiarize-se com o código anexo, que simula um pequeno computador, que será usado durante o desenvolvimento da disciplina.
 
-Para auxiliar na familiarização com a CPU, implemente (em linguagem de montagem) um programa que imprime o número de instruções executadas e os segundos de execução, durante um certo tempo.
-
-Para auxiliar mais na familiarização com o código, implemente um novo dispositivo de entrada para o computador, que fornece um número aleatório cada vez que é lido.
-Altere o programa de adivinhação para usar esse dispositivo.
-
-Para auxiliar mais ainda na familiarização com a CPU, implemente um programa que lê 10 valores desse novo dispositivo e imprime os 10 valores no terminal. Pode aumentar o grau de dificuldade imprimindo eles em ordem crescente.
-
-
-## Descrição do código fornecido
-
 Esta descrição é incompleta.
 Leia o código, faça perguntas.
 As perguntas recebidas (e suas respostas) serão colocadas no final deste texto.
@@ -20,20 +10,20 @@ Quanto antes isso for feito, maiores as chances de sucesso na disciplina.
 
 O código implementa dois programas: um simulador de uma CPU bem simples e um montador, para produzir código em linguagem de máquina para essa CPU à partir de programas em linguagem de montagem (a implementação de um compilador fica como sugestão de exercício para quem estiver com um tempinho livre). São disponibilizados também alguns programas exemplo, escritos em linguagem de montagem, que podem ser montados pelo montador e executados no simulador.
 
-### O hardware simulado
+## O hardware simulado
 
 O computador simulado é constituído de três partes:
 - a memória, que contém instruções e dados,
 - o subsistema de entrada e saída, que permite comunicação externa,
 - a unidade central de processamento, que executa as instruções, manipula e movimenta os dados entre as demais unidades.
 
-#### Memória
+### Memória
 
 A memória é organizada como um vetor de `int`, endereçados a partir de 0.
 A memória é utilizada para conter os programas e os dados acessáveis pela CPU.
 As primeiras 100 posições de memória são reservadas para uso interno da CPU, e não devem ser usadas pelos programas. Por enquanto, a CPU não faz uso dessas posições (mas fará no t1).
 
-#### Entrada e saída
+### Entrada e saída
 
 O acesso aos dispositivos de E/S pela CPU é feito por meio de um controlador de E/S, que mapeia a identificação dos dispositivos reconhecidos pela CPU no código que implementa esses dispositivos. Para ser acessável pela CPU, um dispositivo deve antes ser registrado no controlador de E/S. Esse registro é realizado na inicialização do simulador.
 
@@ -49,7 +39,7 @@ Essa interface permite realizar entrada e saída nos terminais e também control
 A console está implementada usando a biblioteca "curses".
 Caso tenha problemas para compilar com curses, pode alterar as funções tela_* de console.c para usar outra biblioteca.
 
-#### CPU
+### CPU
 
 A CPU é dividida na unidade de execução e na unidade de controle. A unidade de execução contém os registradores e sabe executar cada instrução reconhecida pela CPU. A unidade de controle contém o laço principal de execução, que ordena a execução de uma instrução por vez, a execução das funções que permitem o funcionamento das demais unidades simuladas e o controle da simulação em geral, atendendo os comandos do operador realizados na console.
 
@@ -111,7 +101,11 @@ Os códigos de erro estão em `err.h`.
 Caso isso aconteça, o valor do PC não é alterado e o código do erro é colocado no registrador de erro.
 Para alguns erros, um valor adicional é colocado no registrador de complemento de erro (por exemplo, em caso de erro de acesso à memória, é colocado no complemento o endereço que causou erro de acesso).
 
-### Compilação e execução
+O processador não tem uma pilha de execução, que a maior parte dos processadores reais usa para implementar chamadas de subrotinas.
+A chamada de subrotinas é implementada de uma forma mais simples e limitada: deve-se reservar uma posição de memória antes da primeira instrução de uma subrotina.
+A instrução CHAMA tem como argumento o endereço dessa posição, e coloca aí o endereço para onde a subrotina deve retornar, antes de desviar para o endereço seguinte. A instrução RET tem esse mesmo endereço como argumento, e desvia para esse endereço que está nesse local.
+
+## Compilação e execução do simulador
 
 A compilação é realizada pelo programa `make`, que por sua vez é controlado pelo arquivo `Makefile`. Basta copiar os arquivos do github para um diretório e executar
 ```sh
@@ -136,7 +130,7 @@ Para executar o simulador, execute
 ```sh
 ./main
 ```
-ou
+ou, caso queira executar um programa diferente de ex1.maq,
 ```sh
 ./main ex5.maq
 ```
@@ -162,12 +156,12 @@ Existem 3 comandos para controle dos terminais e 4 para controle da execução:
 - **C**, o controlador vai continuar a execução das instruções uma após a outra
 - **F**, fim da simulação
 
-### Linguagem de montagem
+## Linguagem de montagem
 
 A entrada do montador é um arquivo contendo um programa em linguagem de montagem.
 Esse programa é um texto em ASCII, dividido em linhas.
 O caractere `;` e todos que o seguem em uma linha são ignorados pelo montador.
-Linhas em branco são também ignoradas.
+Linhas em branco também são ignoradas.
 
 Uma linha não ignorada é constituída de 3 partes, separadas por espaços:
 - label
@@ -232,11 +226,11 @@ As linhas seguintes têm o endereço e o valor de até 10 posições.
 A leitura desse arquivo pode ser feita por código em "programa.c".
 
 
-### Implementação
+## Implementação
 
-A implementação do simulador está dividida em vários módulos, cada um implementado em um arquivo `.h` que contém a declaração de um tipo opaco e de funções para operar sobre dados desse tipo, e em um arquivo `.c` de mesmo nome, que define o tipo e implementa as funções do `.h`.
+A implementação do simulador está dividida em vários módulos, cada um implementado em um arquivo `.h` que contém a declaração de um tipo opaco e de funções para operar sobre dados desse tipo, e em um arquivo `.c` de mesmo nome, que define o tipo e implementa as funções do `.h` e mais funções auxiliares ao módulo.
 Os módulos são:
-- **controle**, o controlador daxecução do hardware, contém o laço de execução das instruções
+- **controle**, o controlador da execução do hardware, contém o laço de execução das instruções
 - **cpu**, o executor de instruções, contém os registradores da CPU e o código para execução de cada instrução
 - **memoria**, a memória principal do processador, um vetor de inteiros e funções para acessá-lo
 - **es**, o controlador de E/S, faz o meio campo entre a CPU e os dispositivos de E/S; para que a CPU possa acessar um dispositivo, ele deve antes ser registrado neste módulo
@@ -246,31 +240,15 @@ Os módulos são:
 - **err**, define um tipo para codificar os erros
 - **instrucao**, com nomes e códigos das instruções da CPU
 - **programa**, carrega programas em linguagem de máquina (arquivos .maq) para a memória
-- **main.c**, um programa para testar os módulos acima, inicializa o hardware, carrega um programa na memória e dispara a execução do laço principal do controlador. Se não receber argumentos, carregará o programa em `ex1.maq`. Para executar outro programa, execute com o nome do arquivo como argumento (`./main ex2.maq`). A função `main` está nesse arquivo.
+- **main.c**, um programa para conectar os módulos acima, inicializa o hardware, carrega um programa na memória e dispara a execução do laço principal do controlador. Se não receber argumentos, carregará o programa em `ex1.maq`. Para executar outro programa, execute com o nome do arquivo como argumento (`./main ex2.maq`). A função `main` está nesse arquivo.
 
 Além dos arquivos que implementam o simulador, os demais arquivos são:
 - **montador.c**, um montador para transformar programas .asm (em linguagem de montagem) em .maq (em linguagem de máquina)
 - **ex\*.asm**, programinhas de teste em linguagem de montagem
-- **Makefile**, para facilitar a compilação da tralha toda (coloque todos esses arquivos em um diretório e execute o programa 'make' nesse diretório -- se tudo der certo, um executável 'main' será gerado, além de 'montador' e um .maq para cada .asm)
-
-O make é meio exigente com o formato do Makefile, as linhas que não iniciam na coluna 1 têm que iniciar com um caractere tab.
-Se tiver tendo problemas pra compilar, dá para compilar sem o make, com os comandos:
-```
-gcc -Wall -Werror main.c cpu.c es.c memoria.c relogio.c terminal.c console.c instrucao.c err.c programa.c controle.c -lcurses -o main
-gcc -Wall -Werror montador.c instrucao.c err.c -o montador
-./montador ex1.asm > ex1.maq
-./montador ex2.asm > ex2.maq
-./montador ex3.asm > ex3.maq
-./montador ex4.asm > ex4.maq
-./montador ex5.asm > ex5.maq
-./montador ex6.asm > ex6.maq
-```
+- **Makefile**, para facilitar a compilação da tralha toda.
 
 
-
-#### Simulador
-
-O código do simulador é formado pelos demais arquivos .c e .h.
+### Simulador
 
 O componente principal do simulador é o executor (em cpu.c), cuja função `cpu_executa_1` simula a execução de uma instrução.
 Para isso, ela pega na memória o valor que está na posição do PC (que contém o código da próxima instrução a executar), e chama uma função correspondente a esse valor, que será responsável pela simulação dessa instrução.
@@ -281,15 +259,39 @@ Cada função é também responsável por atualizar o valor do PC caso a execuç
 As instruções de E/S (LE e ESCR) acessam os dispositivos através do módulo controlador de E/S `es`.
 Para serem acessíveis, os dispositivos devem antes ser registrados nesse módulo. 
 Isso é feito na inicialização do controlador, em `controle.c`, com chamadas a `es_registra_dispositivo`, contendo como argumentos o número com que esse dispositivo vai ser identificado nas instruções de E/S, o controlador desse dispositivo, o número com que esse dispositivo é identificado pelo controlador, e as funções que devem ser usadas para ler ou escrever nesse dispositivo.
-Tem dois controladores implementados, um para ler e escrever números no terminal (em `console`) e um para ler o valor do relógio (`relogio`). Esse último controla dois dispositivos, um relógio que conta as instruções executadas e outro que conta milisegundos.
+Tem dois controladores implementados, um para ler e escrever números no terminal (em `terminal.c`) e um para ler o valor do relógio (`relogio.c`). Esse último controla dois dispositivos, um relógio que conta as instruções executadas e outro que conta milisegundos.
 
-O controlador de terminais (em console.c) tem suporte a vários terminais (está definido com 4).
+O controlador de terminais (em `console.c`) tem suporte a vários terminais (está definido com 4).
 Cada terminal tem 4 dispositivos:
-- leitura do próximo caractere do teclado - fornece o próximo caractere que já foi digitado; caso não tenha caractere disponível, a CPU será colocada em erro
-- leitura da disponibilidade de caracteres do teclado - fornece o valor 1 caso exista algum caractere digitado e ainda não lido, 0 caso contrário
-- escrita de um caractere na tela - escreve um caractere na tela, se ela estiver disponível (ela fica indisponível enquanto está rolando), ou coloca a CPU em erro
-- leitura de disponibilidade da tela - fornece o valor 1 caso a tela aceite um novo caractere, 0 caso contrário
+- 0: leitura do próximo caractere do teclado - fornece o próximo caractere que já foi digitado; caso não tenha caractere disponível, a CPU será colocada em erro
+- 1: leitura da disponibilidade de caracteres do teclado - fornece o valor 1 caso exista algum caractere digitado e ainda não lido, 0 caso contrário
+- 2: escrita de um caractere na tela - escreve um caractere na tela, se ela estiver disponível (ela fica indisponível enquanto está rolando), ou coloca a CPU em erro
+- 3: leitura de disponibilidade da tela - fornece o valor 1 caso a tela aceite um novo caractere, 0 caso contrário
 
-Esses dispositivos são identificados respectivamente como 0, 1, 2 e 3 para o primeiro terminal, 4, 5, 6 e 7 para o segundo etc.
-Essa é a identificação dos dispositivos no controlador de terminais (console.c). A identificação deles para a CPU depende de como eles forem registrados no controlador de E/S.
+Na forma como está o código, apesar da console controlar 4 terminais, só os dois primeiros estão sendo registrados no controlador de E/S na inicialização do hardware (em `main.c`): dispositivos 0, 1, 2 e 3 para o primeiro terminal e 4, 5, 6 e 7 para o segundo. Os dispositivos 8 e 9 estão sendo registrados como os dispositivos 0 e 1 do relógio.
+
+A sequência de execução do simulador é:
+- em main.c, cria os módulos de hardware, interliga-os, inicializa-os, carrega um programa na memória, e chama o laço de simulação
+- em controle.c, o laço de simulação repete até que o operador encerre a simulação:
+   - executa uma instrução
+   - para a simulação se a CPU ficar em erro
+   - chama a função tictac do relógio, para ele se atualizar
+   - chama a função tictac da console, para ela se atualizar, ler o teclado, atualizar os terminais, desenhar a tela
+   - executa eventual comando do operador vindo da console
+   - atualiza a linha de status da console
+
+### Montador
+
+Olha o código.
+
+## Sugestões do que fazer com isso
+
+Compile, execute os programas .asm exemplo, tente entender os .asm.
+
+Para auxiliar na familiarização com a CPU, implemente (em linguagem de montagem) um programa que imprime o número de instruções executadas e os segundos de execução, durante um certo tempo.
+
+Para auxiliar na familiarização com o código, implemente um novo dispositivo de entrada para o computador, que fornece um número aleatório cada vez que é lido.
+Altere o programa de adivinhação para usar esse dispositivo.
+
+Para auxiliar mais ainda na familiarização com a CPU, implemente um programa .asm que lê 10 (ou "n") valores desse novo dispositivo e imprime os valores no terminal. Pode aumentar o grau de dificuldade imprimindo eles em ordem crescente.
 
