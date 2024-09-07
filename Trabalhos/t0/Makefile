@@ -1,0 +1,36 @@
+CC = gcc
+CFLAGS = -Wall -Werror -g
+LDLIBS = -lcurses
+
+OBJS_MAIN = cpu.o es.o memoria.o relogio.o console.o terminal.o tela_curses.o \
+		instrucao.o err.o programa.o controle.o main.o
+OBJS_MONTADOR = instrucao.o err.o montador.o
+OBJS = ${OBJS_MAIN} ${OBJS_MONTADOR}
+MAQS = ex1.maq ex2.maq ex3.maq ex4.maq ex5.maq ex6.maq
+TARGETS = main montador ${MAQS}
+
+all: ${TARGETS}
+
+# para gerar o montador, precisa de todos os .o do montador
+montador: ${OBJS_MONTADOR}
+
+# para gerar o programa principal, precisa de todos os .o do main
+main: ${OBJS_MAIN}
+
+# para transformar um .asm em .maq, precisamos do montador
+%.maq: %.asm montador
+	./montador $*.asm > $*.maq
+
+# apaga os arquivos gerados
+clean:
+	rm -f ${OBJS} ${TARGETS} ${MAQS} ${OBJS:.o=.d}
+
+# para calcular as dependências de cada arquivo .c (e colocar no .d)
+%.d: %.c
+	@set -e; rm -f $@; \
+	 $(CC) -MM $(CPPFLAGS) $< > /tmp/$@.$$$$; \
+	 sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < /tmp/$@.$$$$ > $@; \
+	 rm -f /tmp/$@.$$$$
+
+# inclui as dependências
+include $(OBJS:.o=.d)

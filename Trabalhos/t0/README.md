@@ -36,8 +36,8 @@ A console controla também a interface com o usuário da simulação (o operador
 Ela mostra na tela a entrada e saída dos vários terminais (está configurada para 4), os prints para debug do programa (feitos com a função console_printf), além da interface com o operador.
 Essa interface permite realizar entrada e saída nos terminais e também controlar a simulação.
 
-A console está implementada usando a biblioteca "curses".
-Caso tenha problemas para compilar com curses, pode alterar as funções tela_* de console.c para usar outra biblioteca.
+As funções que a console usa para acesso ao teclado e à tela estão em tela_curses.c, implementadas usando a biblioteca "curses".
+Caso tenha problemas para compilar com curses, pode reimplementar as funções de tela.h em outro arquivo, usando outra biblioteca.
 
 ### CPU
 
@@ -113,10 +113,9 @@ make
 ```
 Se tudo der certo, um executável 'main' será gerado, além de 'montador' e um .maq para cada .asm)
 
-O make é meio exigente com o formato do Makefile, as linhas que não iniciam na coluna 1 têm que iniciar com um caractere tab.
-Se tiver tendo problemas pra compilar, dá para compilar sem o make, com os comandos:
+Se tiver tendo problemas pra compilar com o make, dá para compilar manualmente (ou com um script) com os comandos:
 ```
-gcc -Wall -Werror main.c controle.c cpu.c instrucao.c err.c memoria.c es.c relogio.c terminal.c console.c programa.c -lcurses -o main
+gcc -Wall -Werror main.c controle.c cpu.c instrucao.c err.c memoria.c es.c relogio.c terminal.c console.c tela_curses.c programa.c -lcurses -o main
 gcc -Wall -Werror montador.c instrucao.c err.c -o montador
 ./montador ex1.asm > ex1.maq
 ./montador ex2.asm > ex2.maq
@@ -236,7 +235,8 @@ Os módulos são:
 - **es**, o controlador de E/S, faz o meio campo entre a CPU e os dispositivos de E/S; para que a CPU possa acessar um dispositivo, ele deve antes ser registrado neste módulo
 - **relogio**, conta o número de instruções executadas e disponibiliza esse número e o relógio de tempo real do sistema, em 2 dispositivos de entrada
 - **terminal**, simula um terminal de vídeo mínimo, com uma linha de entrada e uma de saída
-- **console**, controla a tela e o teclado reais, gerencia os terminais, mostra mensagens do sistema e a console do operador (é o módulo mais complicado, e [argh] está implementado usando curses)
+- **console**, controla a tela e o teclado reais, gerencia os terminais, mostra mensagens do sistema e a console do operador (é o módulo mais complicado)
+- **tela_curses**, funções para acesso à tela e ao teclado, implementadas usando curses [argh]
 - **err**, define um tipo para codificar os erros
 - **instrucao**, com nomes e códigos das instruções da CPU
 - **programa**, carrega programas em linguagem de máquina (arquivos .maq) para a memória
@@ -258,21 +258,26 @@ Cada função é também responsável por atualizar o valor do PC caso a execuç
 
 As instruções de E/S (LE e ESCR) acessam os dispositivos através do módulo controlador de E/S `es`.
 Para serem acessíveis, os dispositivos devem antes ser registrados nesse módulo. 
-Isso é feito na inicialização do controlador, em `controle.c`, com chamadas a `es_registra_dispositivo`, contendo como argumentos o número com que esse dispositivo vai ser identificado nas instruções de E/S, o controlador desse dispositivo, o número com que esse dispositivo é identificado pelo controlador, e as funções que devem ser usadas para ler ou escrever nesse dispositivo.
-Tem dois controladores implementados, um para ler e escrever números no terminal (em `terminal.c`) e um para ler o valor do relógio (`relogio.c`). Esse último controla dois dispositivos, um relógio que conta as instruções executadas e outro que conta milisegundos.
+Isso é feito na inicialização do simulador, em `main.c`, com chamadas a `es_registra_dispositivo`, contendo como argumentos o número com que esse dispositivo vai ser identificado nas instruções de E/S, o controlador desse dispositivo, o número com que esse dispositivo é identificado pelo controlador, e as funções que devem ser usadas para ler ou escrever nesse dispositivo.
+Tem dois controladores de dispositivos implementados, um para ler e escrever em um terminal (em `terminal.c`) e um para ler o valor do relógio (`relogio.c`).
 
-O controlador de terminais (em `console.c`) tem suporte a vários terminais (está definido com 4).
+O relógio tem dois dispositivos:
+- 0: contém o número de instruções executadas
+- 1: contém os milisegundos (de tempo real) que se passaram desde o início da simulação.
+
 Cada terminal tem 4 dispositivos:
 - 0: leitura do próximo caractere do teclado - fornece o próximo caractere que já foi digitado; caso não tenha caractere disponível, a CPU será colocada em erro
 - 1: leitura da disponibilidade de caracteres do teclado - fornece o valor 1 caso exista algum caractere digitado e ainda não lido, 0 caso contrário
 - 2: escrita de um caractere na tela - escreve um caractere na tela, se ela estiver disponível (ela fica indisponível enquanto está rolando), ou coloca a CPU em erro
 - 3: leitura de disponibilidade da tela - fornece o valor 1 caso a tela aceite um novo caractere, 0 caso contrário
 
+O controlador de console (em `console.c`), além de controlar a console do operador, realiza o suporte a vários terminais (está definido com 4).
+Os terminais são inicializados pela console quando esta é inicializada.
 Na forma como está o código, apesar da console controlar 4 terminais, só os dois primeiros estão sendo registrados no controlador de E/S na inicialização do hardware (em `main.c`): dispositivos 0, 1, 2 e 3 para o primeiro terminal e 4, 5, 6 e 7 para o segundo. Os dispositivos 8 e 9 estão sendo registrados como os dispositivos 0 e 1 do relógio.
 
 A sequência de execução do simulador é:
 - em main.c, cria os módulos de hardware, interliga-os, inicializa-os, carrega um programa na memória, e chama o laço de simulação
-- em controle.c, o laço de simulação repete até que o operador encerre a simulação:
+- em controle.c, o laço de simulação repete os passos abaixo até que o operador encerre a simulação:
    - executa uma instrução
    - para a simulação se a CPU ficar em erro
    - chama a função tictac do relógio, para ele se atualizar
@@ -295,3 +300,4 @@ Altere o programa de adivinhação para usar esse dispositivo.
 
 Para auxiliar mais ainda na familiarização com a CPU, implemente um programa .asm que lê 10 (ou "n") valores desse novo dispositivo e imprime os valores no terminal. Pode aumentar o grau de dificuldade imprimindo eles em ordem crescente.
 
+Como a console toma conta da tela do terminal, não use printf no seu programa. Caso necessite que o programa imprima (para depuração por exemplo), use a função console_printf, que imprime na tela da console. Tudo que é impresso dessa forma é salvo em um arquivo de log.
