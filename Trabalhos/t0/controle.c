@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <assert.h>
 
 struct controle_t {
   cpu_t *cpu;
@@ -19,7 +20,7 @@ static void controle_atualiza_estado_na_console(controle_t *self);
 controle_t *controle_cria(cpu_t *cpu, console_t *console, relogio_t *relogio)
 {
   controle_t *self = malloc(sizeof(*self));
-  if (self == NULL) return NULL;
+  assert(self != NULL);
 
   self->cpu = cpu;
   self->console = console;

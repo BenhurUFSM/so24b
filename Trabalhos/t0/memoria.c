@@ -1,5 +1,7 @@
 #include "memoria.h"
+
 #include <stdlib.h>
+#include <assert.h>
 
 // tipo de dados opaco para representar uma região de memória
 struct mem_t {
@@ -11,14 +13,13 @@ mem_t *mem_cria(int tam)
 {
   mem_t *self;
   self = malloc(sizeof(*self));
-  if (self != NULL) {
-    self->tam = tam;
-    self->conteudo = malloc(tam * sizeof(*(self->conteudo)));
-    if (self->conteudo == NULL) {
-      free(self);
-      self = NULL;
-    }
-  }
+  assert(self != NULL);
+
+  self->conteudo = malloc(tam * sizeof(*(self->conteudo)));
+  assert(self->conteudo != NULL);
+
+  self->tam = tam;
+
   return self;
 }
 

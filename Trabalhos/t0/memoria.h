@@ -12,7 +12,6 @@ typedef struct mem_t mem_t;
 // cria uma região de memória com capacidade para 'tam' valores (inteiros)
 // retorna um ponteiro para um descritor, que deverá ser usado em todas
 //   as operações sobre essa memória
-// retorna NULL em caso de erro
 mem_t *mem_cria(int tam);
 
 // destrói uma região de memória

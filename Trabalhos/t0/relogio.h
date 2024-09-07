@@ -9,7 +9,6 @@
 typedef struct relogio_t relogio_t;
 
 // cria e inicializa um relógio
-// retorna NULL em caso de erro
 relogio_t *relogio_cria(void);
 
 // destrói um relógio
@@ -23,10 +22,9 @@ void relogio_tictac(relogio_t *self);
 // retorna a hora atual do sistema, em unidades de tempo
 int relogio_agora(relogio_t *self);
 
-// Funções para acessar o relógio como um dispositivo de E/S
-//   só tem leitura, e dois dispositivos, '0' para ler o relógio local
-//   (contador de instruções) e '1' para ler o relógio de tempo de CPU
-//   consumido pelo simulador (em ms)
+// Funções para acessar o relógio como dispositivo de E/S, com id:
+//   '0' para ler o relógio local (contador de instruções)
+//   '1' para ler o tempo de CPU consumido pelo simulador (em ms)
 // Devem seguir o protocolo f_leitura_t e f_escrita_t declarados em es.h
 err_t relogio_leitura(void *disp, int id, int *pvalor);
 #endif // RELOGIO_H

@@ -2,8 +2,10 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <assert.h>
 
 struct relogio_t {
+  // que horas são (em tics)
   int agora;
 };
 
@@ -11,9 +13,10 @@ relogio_t *relogio_cria(void)
 {
   relogio_t *self;
   self = malloc(sizeof(relogio_t));
-  if (self != NULL) {
-    self->agora = 0;
-  }
+  assert(self != NULL);
+
+  self->agora = 0;
+
   return self;
 }
 

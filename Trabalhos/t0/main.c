@@ -12,83 +12,63 @@
 // constantes
 #define MEM_TAM 2000        // tamanho da memória principal
 
-// funções auxiliares
-static void init_mem(mem_t *mem, char *nome_do_executavel);
-static void cria_hardware();
-static void destroi_hardware();
-
-// estrutura global que contém os componentes do computador simulado
-static struct {
+// estrutura com os componentes do computador simulado
+typedef struct {
   mem_t *mem;
   cpu_t *cpu;
   relogio_t *relogio;
   console_t *console;
   es_t *es;
   controle_t *controle;
-} hardware;
+} hardware_t;
 
-static void cria_hardware()
+static void cria_hardware(hardware_t *hw)
 {
   // cria a memória
-  hardware.mem = mem_cria(MEM_TAM);
+  hw->mem = mem_cria(MEM_TAM);
 
   // cria dispositivos de E/S
-  hardware.console = console_cria();
-  hardware.relogio = relogio_cria();
+  hw->console = console_cria();
+  hw->relogio = relogio_cria();
 
   // cria o controlador de E/S e registra os dispositivos
   //   por exemplo, o dispositivo 8 do controlador de E/S (e da CPU) será o
   //   dispositivo 0 do relógio (que é o contador de instruções)
-  hardware.es = es_cria();
+  hw->es = es_cria();
   // lê teclado, testa teclado, escreve tela, testa tela do terminal A
   terminal_t *terminal;
-  terminal = console_terminal(hardware.console, 'A');
-  es_registra_dispositivo(hardware.es, 0, terminal, 0, terminal_leitura, NULL);
-  es_registra_dispositivo(hardware.es, 1, terminal, 1, terminal_leitura, NULL);
-  es_registra_dispositivo(hardware.es, 2, terminal, 2, NULL, terminal_escrita);
-  es_registra_dispositivo(hardware.es, 3, terminal, 3, terminal_leitura, NULL);
+  terminal = console_terminal(hw->console, 'A');
+  es_registra_dispositivo(hw->es, 0, terminal, 0, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, 1, terminal, 1, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, 2, terminal, 2, NULL, terminal_escrita);
+  es_registra_dispositivo(hw->es, 3, terminal, 3, terminal_leitura, NULL);
   // lê teclado, testa teclado, escreve tela, testa tela do terminal B
-  terminal = console_terminal(hardware.console, 'B');
-  es_registra_dispositivo(hardware.es, 4, terminal, 0, terminal_leitura, NULL);
-  es_registra_dispositivo(hardware.es, 5, terminal, 1, terminal_leitura, NULL);
-  es_registra_dispositivo(hardware.es, 6, terminal, 2, NULL, terminal_escrita);
-  es_registra_dispositivo(hardware.es, 7, terminal, 3, terminal_leitura, NULL);
+  terminal = console_terminal(hw->console, 'B');
+  es_registra_dispositivo(hw->es, 4, terminal, 0, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, 5, terminal, 1, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, 6, terminal, 2, NULL, terminal_escrita);
+  es_registra_dispositivo(hw->es, 7, terminal, 3, terminal_leitura, NULL);
   // lê relógio virtual, relógio real
-  es_registra_dispositivo(hardware.es, 8, hardware.relogio, 0, relogio_leitura, NULL);
-  es_registra_dispositivo(hardware.es, 9, hardware.relogio, 1, relogio_leitura, NULL);
+  es_registra_dispositivo(hw->es, 8, hw->relogio, 0, relogio_leitura, NULL);
+  es_registra_dispositivo(hw->es, 9, hw->relogio, 1, relogio_leitura, NULL);
 
   // cria a unidade de execução e inicializa com a memória e o controlador de E/S
-  hardware.cpu = cpu_cria(hardware.mem, hardware.es);
+  hw->cpu = cpu_cria(hw->mem, hw->es);
 
   // cria o controlador da CPU e inicializa com a unidade de execução, a console e
   //   o relógio
-  hardware.controle = controle_cria(hardware.cpu, hardware.console, hardware.relogio);
+  hw->controle = controle_cria(hw->cpu, hw->console, hw->relogio);
 }
 
-static void destroi_hardware()
+static void destroi_hardware(hardware_t *hw)
 {
-  controle_destroi(hardware.controle);
-  cpu_destroi(hardware.cpu);
-  es_destroi(hardware.es);
-  relogio_destroi(hardware.relogio);
-  console_destroi(hardware.console);
-  mem_destroi(hardware.mem);
+  controle_destroi(hw->controle);
+  cpu_destroi(hw->cpu);
+  es_destroi(hw->es);
+  relogio_destroi(hw->relogio);
+  console_destroi(hw->console);
+  mem_destroi(hw->mem);
 }
-
-int main(int argc, char *argv[])
-{
-  char *nome_do_programa = "ex1.maq";
-  if (argc > 1) nome_do_programa = argv[1];
-  // cria o hardware
-  cria_hardware();
-  // coloca um programa na memória
-  init_mem(hardware.mem, nome_do_programa);
-  // executa o laço principal do controlador
-  controle_laco(hardware.controle);
-  // destrói tudo
-  destroi_hardware();
-}
-
 
 // cria memória e inicializa com o conteúdo do programa
 static void init_mem(mem_t *mem, char *nome_do_executavel)
@@ -111,3 +91,22 @@ static void init_mem(mem_t *mem, char *nome_do_executavel)
   }
   prog_destroi(prog);
 }
+
+int main(int argc, char *argv[])
+{
+  hardware_t hw;
+  char *nome_do_programa = "ex1.maq";
+  if (argc > 1) nome_do_programa = argv[1];
+
+  // cria o hardware
+  cria_hardware(&hw);
+  // coloca um programa na memória
+  init_mem(hw.mem, nome_do_programa);
+
+  // executa o laço principal do controlador
+  controle_laco(hw.controle);
+
+  // destroi tudo
+  destroi_hardware(&hw);
+}
+

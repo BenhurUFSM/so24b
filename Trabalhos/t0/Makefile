@@ -18,6 +18,7 @@ montador: ${OBJS_MONTADOR}
 main: ${OBJS_MAIN}
 
 # para transformar um .asm em .maq, precisamos do montador
+# monta os programas de usuário no endereço 100
 %.maq: %.asm montador
 	./montador $*.asm > $*.maq
 

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 // uma CPU tem estado, memória, controlador de ES
 struct cpu_t {
@@ -25,16 +26,17 @@ cpu_t *cpu_cria(mem_t *mem, es_t *es)
 {
   cpu_t *self;
   self = malloc(sizeof(*self));
-  if (self != NULL) {
-    self->mem = mem;
-    self->es = es;
-    // inicializa registradores
-    self->PC = 100;
-    self->A = 0;
-    self->X = 0;
-    self->erro = ERR_OK;
-    self->complemento = 0;
-  }
+  assert(self != NULL);
+
+  self->mem = mem;
+  self->es = es;
+  // inicializa registradores
+  self->PC = 100;
+  self->A = 0;
+  self->X = 0;
+  self->erro = ERR_OK;
+  self->complemento = 0;
+
   return self;
 }
 
