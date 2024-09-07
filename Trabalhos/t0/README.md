@@ -19,19 +19,19 @@ O computador simulado é constituído de três partes:
 
 ### Memória
 
-A memória é organizada como um vetor de `int`, endereçados a partir de 0.
+A **memória** é organizada como um vetor de `int`, endereçados a partir de 0.
 A memória é utilizada para conter os programas e os dados acessáveis pela CPU.
 As primeiras 100 posições de memória são reservadas para uso interno da CPU, e não devem ser usadas pelos programas. Por enquanto, a CPU não faz uso dessas posições (mas fará no t1).
 
 ### Entrada e saída
 
-O acesso aos dispositivos de E/S pela CPU é feito por meio de um controlador de E/S, que mapeia a identificação dos dispositivos reconhecidos pela CPU no código que implementa esses dispositivos. Para ser acessável pela CPU, um dispositivo deve antes ser registrado no controlador de E/S. Esse registro é realizado na inicialização do simulador.
+O acesso aos dispositivos de **E/S** pela CPU é feito por meio de um controlador de E/S, que mapeia a identificação dos dispositivos reconhecidos pela CPU no código que implementa esses dispositivos. Para ser acessável pela CPU, um dispositivo deve antes ser registrado no controlador de E/S. Esse registro é realizado na inicialização do simulador.
 
 Estão implementados dois dispositivos de E/S:
-- terminal, para entrada pelo teclado e saída no vídeo,
-- relógio, que conta o número de instruções executadas e o tempo de execução da CPU.
+- **terminal**, para entrada pelo teclado e saída no vídeo,
+- **relógio**, que conta o número de instruções executadas e o tempo de execução da CPU.
 
-Os terminais são controlados pela console, que é quem realmente tem o controle do teclado e do vídeo físicos.
+Os terminais são controlados pela **console**, que é quem realmente tem o controle do teclado e do vídeo físicos.
 A console controla também a interface com o usuário da simulação (o operador).
 Ela mostra na tela a entrada e saída dos vários terminais (está configurada para 4), os prints para debug do programa (feitos com a função console_printf), além da interface com o operador.
 Essa interface permite realizar entrada e saída nos terminais e também controlar a simulação.
@@ -41,16 +41,17 @@ Caso tenha problemas para compilar com curses, pode reimplementar as funções d
 
 ### CPU
 
-A CPU é dividida na unidade de execução e na unidade de controle. A unidade de execução contém os registradores e sabe executar cada instrução reconhecida pela CPU. A unidade de controle contém o laço principal de execução, que ordena a execução de uma instrução por vez, a execução das funções que permitem o funcionamento das demais unidades simuladas e o controle da simulação em geral, atendendo os comandos do operador realizados na console.
+A CPU é dividida em unidade de execução e unidade de controle. A **unidade de execução** contém os registradores e sabe executar cada instrução reconhecida pela CPU. A **unidade de controle** contém o laço principal de execução, que ordena a execução de uma instrução por vez, a execução das funções que permitem o funcionamento das demais unidades simuladas e o controle da simulação em geral, atendendo os comandos do operador realizados na console.
 
 A CPU tem três registradores principais:
 - **PC**, o contador de programa, tem o endereço onde está a próxima instrução a ser executada;
 - **A**, acumulador, é usado nas instruções aritméticas, e meio que pra todo o resto;
 - **X**, registrador auxiliar, usado para acessos indexados à memória.
 
-Além desses, tem um registrador de erro, para quando a CPU detecta algum problema, e um registrador complementar, para quando o registrador de erro não é suficiente para codificar o problema.
+Além desses, tem um registrador de **erro**, para quando a CPU detecta algum problema, e um registrador **complementar**, para quando o registrador de erro não é suficiente para codificar o problema.
 Todos os registradores contêm um valor `int`, e são inicializados em 0, exceto o PC, que é inicializado em 100.
 
+#### Instruções
 
 As instruções que o processador reconhece (por enquanto) estão na tabela abaixo.
 
@@ -133,27 +134,29 @@ ou, caso queira executar um programa diferente de ex1.maq,
 ```sh
 ./main ex5.maq
 ```
-Será apresentada a console do simulador. É necessário que o emulador de terminal tenha pelo menos 24 linhas de 80 colunas.
+Durante a execução, é apresentada a console do simulador.
+Ela é definida com um tamanho fixo de 24 linhas de 80 colunas.
+Para que a apresentação seja bem sucedida, é necessário que o emulador de terminal tenha pelo menos 24 linhas de 80 colunas.
 A tela do simulador é dividida em 4 partes:
 - no topo, duas linhas para cada terminal, uma com a saída do terminal (o que for escrito nele pelo programa) e outra com a entrada (o que for digitado pelo operador e ainda não lido pelo programa).
-- no meio, uma linha com o estado do simulador (a primeira palavra, que deve ser `PARADO`) e o estado da CPU, com:
+- no meio, uma linha com o estado do simulador (a primeira palavra, que deve ser `PARADO`, já que a simulação inicia nesse estado) e o estado da CPU, com:
    - o valor dos registradores PC, A e X,
    - a próxima instrução a ser executada (a que está no endereço do PC),
    - o erro da CPU, se for o caso.
-- linhas em branco onde aparecerão mensagens da console, se houverem,
-- embaixo, linha de entrada de comandos pelo operador.
+- embaixo, linha de entrada de comandos pelo operador
+- no espaço entre a linha de estado e a de entrada aparecerão mensagens da console, se houverem,
 
 O controle da execução é realizado pelo operador com a entrada textual de comandos na console.
 Cada comando é digitado em uma linha, terminada por `enter`.
 A linha pode ser editada antes do `enter` com `backspace`.
 Existem 3 comandos para controle dos terminais e 4 para controle da execução:
-- **E**, faz a entrada de texto em um terminal (exemplo: `eaxis` coloca uma linha com o valor `xis\n` na entrada do terminal `a`, o primeiro)
+- **E**, faz a entrada de texto em um terminal (exemplo: `eaxis` coloca uma linha com o valor `xis ` na entrada do terminal `a`, o primeiro)
 - **Z**, limpa a tela de um terminal (exemplo: `zb` limpa a saída (uma linha na tela) do segundo terminal, `b`)
 - **D**, altera o tempo de espera em cada acesso ao teclado, mudando a velocidade da simulação (o valor default corresponde a D5)
 - **P**, para a execução, o controlador não vai mais mandar a CPU executar instruções em seu laço (a execução inicia nesse modo)
 - **1**, o controlador vai executar uma instrução e depois parar
 - **C**, o controlador vai continuar a execução das instruções uma após a outra
-- **F**, fim da simulação
+- **F**, fim da simulação.
 
 ## Linguagem de montagem
 
@@ -200,7 +203,7 @@ Além de `DEFINE`, o montador reconhece as pseudo instruções `VALOR`, `STRING`
 - `ESPACO` também tem um número como argumento, que diz quantos zeros serão colocados nas próximas posições da memória (é como se fossem vários `VALOR 0`).
 - `STRING` define as próximas posições da memória com os valores ASCII dos caracteres entre aspas, seguido de um valor 0.
 
-Por exemplo, se o código abaixo for montado no endereço 100, cada linha vai gerar:
+Por exemplo, se o código abaixo (que não faz nada de útil, é só para exemplificar o que o montador vai fazer) for montado no endereço 100, cada linha vai gerar:
 - linha 1: nada, só define o símbolo tecl,
 - linha 2: o valor 23 (o código de LE) no endereço 100, 3 (o valor definido para tecl) no endereço 101,
 - linha 3: 5 no 102 (ARMM), 105 no 103 (y vai ficar no endereço 105),
@@ -287,7 +290,7 @@ A sequência de execução do simulador é:
 
 ### Montador
 
-Olha o código.
+Olha o código, se tiver curiosidade.
 
 ## Sugestões do que fazer com isso
 
