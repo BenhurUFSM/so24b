@@ -1,3 +1,8 @@
+// instrucao.h
+// dados sobre as instruções e pseudo-instruções
+// simulador de computador
+// so24b
+
 #ifndef INSTRUCAO_H
 #define INSTRUCAO_H
 
@@ -17,7 +22,7 @@ typedef enum {
   // instruções normais
   // opcode     #arg  descrição
   NOP    =  0, // 1   não faz nada
-  PARA   =  1, // 1   para a CPU             modo = ERR_CPU_PARADA
+  PARA   =  1, // 1   suspende a execução    modo = ERR_CPU_PARADA
   CARGI  =  2, // 2   carrega imediato       A = A1
   CARGM  =  3, // 2   carrega da memória     A = mem[A1]
   CARGX  =  4, // 2   carrega indexado       A = mem[A1+X]
@@ -33,19 +38,19 @@ typedef enum {
   RESTO  = 14, // 2   calcula o resto        A %= mem[A1]
   NEG    = 15, // 1   inverte o sinal        A = -A
   DESV   = 16, // 2   desvio                 PC = A1
-  DESVZ  = 17, // 2   desvio condicional     se A for 0, PC = A1
-  DESVNZ = 18, // 2   desvio condicional     se A não for 0, PC = A1
-  DESVN  = 19, // 2   desvio condicional     se A < 0, PC = A1
-  DESVP  = 20, // 2   desvio condicional     se A > 0, PC = A1
+  DESVZ  = 17, // 2   desvio se zero         se A for 0, PC = A1
+  DESVNZ = 18, // 2   desvio se não zero     se A não for 0, PC = A1
+  DESVN  = 19, // 2   desvio se negativo     se A < 0, PC = A1
+  DESVP  = 20, // 2   desvio se positivo     se A > 0, PC = A1
   CHAMA  = 21, // 2   chama subrotina        mem[A1] = PC+2; PC = A1+1
   RET    = 22, // 2   retorna de subrotina   PC = mem[A1]
   LE     = 23, // 2   leitura de E/S         A = es[A1]
   ESCR   = 24, // 2   escrita de E/S         es[A1] = A
   // pseudo-instruções
-  VALOR,
-  STRING,
-  ESPACO,
-  DEFINE,
+  VALOR,       // inicializa próxima posição de memória
+  STRING,      // inicializa próximas posições de memória
+  ESPACO,      // inicializa próximar posições de memória com zeros
+  DEFINE,      // define o valor de um símbolo
   N_OPCODE
 } opcode_t;
 

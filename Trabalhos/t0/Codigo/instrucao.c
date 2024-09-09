@@ -1,3 +1,8 @@
+// instrucao.c
+// dados sobre as instruções e pseudo-instruções
+// simulador de computador
+// so24b
+
 #include "instrucao.h"
 
 #include <stddef.h>

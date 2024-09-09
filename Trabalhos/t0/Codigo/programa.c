@@ -1,3 +1,8 @@
+// programa.c
+// acesso a um arquivo contendo um programa em linguagem de máquina
+// simulador de computador
+// so24b
+
 #include "programa.h"
 
 #include <stdio.h>

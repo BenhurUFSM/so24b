@@ -1,13 +1,24 @@
+// es.c
+// controlador de dispositivos de E/S
+// simulador de computador
+// so24b
+
 #include "es.h"
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 // estrutura para definir um dispositivo
 typedef struct {
-   f_leitura_t f_leitura; // função para ler um inteiro do dispositivo
-   f_escrita_t f_escrita; // função para escrever um inteiro no dispositivo
-   void *controladora;    // descritor do dispositivo (arg das f acima)
-   int id;                // identificador do (sub)dispositivo (arg das f acima)
+   // função para ler um valor do dispositivo
+   f_leitura_t f_leitura;
+   // função para escrever um valor no dispositivo
+   f_escrita_t f_escrita;
+   // controlador do dispositivo (argumento para as funções acima)
+   void *controladora;
+   // identificador do dispositivo (argumento para as funções acima)
+   int id;
 } dispositivo_t;
 
 #define N_DISPOSITIVOS 100 // número máximo de dispositivos suportados
@@ -20,6 +31,7 @@ struct es_t {
 es_t *es_cria(void)
 {
   es_t *self = calloc(1, sizeof(*self)); // com calloc já zera toda a struct
+  assert(self != NULL);
   return self;
 }
 

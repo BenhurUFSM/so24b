@@ -1,3 +1,8 @@
+// relogio.c
+// dispositivo de E/S para contar instruções executadas
+// simulador de computador
+// so24b
+
 #include "relogio.h"
 
 #include <stdlib.h>

@@ -1,3 +1,8 @@
+// err.h
+// códigos de erro da CPU
+// simulador de computador
+// so24b
+
 #ifndef ERR_H
 #define ERR_H
 

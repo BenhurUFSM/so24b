@@ -1,6 +1,7 @@
 // terminal.h
-// simula um terminal (1 linha de entrada e 1 de saída)
-// para o simulador de computador para so24b
+// entrada e saída em um terminal
+// simulador de computador
+// so24b
 
 #ifndef TERMINAL_H
 #define TERMINAL_H

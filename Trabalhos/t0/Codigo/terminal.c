@@ -1,3 +1,8 @@
+// terminal.c
+// entrada e saída em um terminal
+// simulador de computador
+// so24b
+
 #include "terminal.h"
 
 #include <stdlib.h>

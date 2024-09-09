@@ -1,4 +1,10 @@
-// montador para o processador de SO
+// montador.c
+// montador de código asm em maq
+// simulador de computador
+// so24b
+
+// INCLUDES {{{1
+#include "instrucao.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,9 +12,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-#include "instrucao.h"
-// auxiliares
-
+// AUXILIARES {{{1
 // aborta o programa com uma mensagem de erro
 void erro_brabo(char *msg)
 {
@@ -30,7 +34,7 @@ bool tem_numero(char *s, int *num)
   return false;
 }
 
-// memória de saída
+// MEMÓRIA DE SAÍDA {{{1
 
 // representa a memória do programa -- a saída do montador é colocada aqui
 
@@ -75,7 +79,7 @@ void mem_imprime(void)
   }
 }
 
-// simbolos
+// SÍMBOLOS {{{1
 
 // tabela com os símbolos (labels) já definidos pelo programa, e o valor (endereço) deles
 
@@ -114,7 +118,7 @@ void simb_novo(char *nome, int valor)
 }
 
 
-// referências
+// REFERÊNCIAS {{{1
 
 // tabela com referências a símbolos
 //   contém a linha e o endereço correspondente onde o símbolo foi referenciado
@@ -157,7 +161,7 @@ void ref_resolve(void)
 
 
 
-// montagem
+// MONTAGEM {{{1
 
 // realiza a montagem de uma instrução (gera o código para ela na memória),
 //   tendo opcode da instrução e o argumento
@@ -367,6 +371,8 @@ void monta_arquivo(char *nome)
   ref_resolve();
 }
 
+// MAIN {{{1
+
 void verifica_args(int argc, char *argv[argc])
 {
   for (int argi = 1; argi < argc; argi++) {
@@ -400,3 +406,5 @@ int main(int argc, char *argv[argc])
   mem_imprime();
   return 0;
 }
+
+// vim: foldmethod=marker

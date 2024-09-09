@@ -1,9 +1,14 @@
+// memoria.c
+// memória principal
+// simulador de computador
+// so24b
+
 #include "memoria.h"
 
 #include <stdlib.h>
 #include <assert.h>
 
-// tipo de dados opaco para representar uma região de memória
+// tipo de dados para representar uma região de memória
 struct mem_t {
   int tam;
   int *conteudo;
@@ -39,7 +44,7 @@ int mem_tam(mem_t *self)
 }
 
 // função auxiliar, verifica se endereço é válido
-static err_t verif_permissao(mem_t *self, int endereco)
+static err_t verifica_permissao(mem_t *self, int endereco)
 {
   if (endereco < 0 || endereco >= self->tam) {
     return ERR_END_INV;
@@ -49,7 +54,7 @@ static err_t verif_permissao(mem_t *self, int endereco)
 
 err_t mem_le(mem_t *self, int endereco, int *pvalor)
 {
-  err_t err = verif_permissao(self, endereco);
+  err_t err = verifica_permissao(self, endereco);
   if (err == ERR_OK) {
     *pvalor = self->conteudo[endereco];
   }
@@ -58,7 +63,7 @@ err_t mem_le(mem_t *self, int endereco, int *pvalor)
 
 err_t mem_escreve(mem_t *self, int endereco, int valor)
 {
-  err_t err = verif_permissao(self, endereco);
+  err_t err = verifica_permissao(self, endereco);
   if (err == ERR_OK) {
     self->conteudo[endereco] = valor;
   }

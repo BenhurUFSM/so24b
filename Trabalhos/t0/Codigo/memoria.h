@@ -1,8 +1,10 @@
+// memoria.h
+// memória principal
+// simulador de computador
+// so24b
+
 #ifndef MEMORIA_H
 #define MEMORIA_H
-
-// simulador da memória principal
-// é um vetor de inteiros
 
 #include "err.h"
 

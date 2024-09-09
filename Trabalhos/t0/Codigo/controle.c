@@ -1,3 +1,8 @@
+// controle.c
+// unidade de controle da CPU
+// simulador de computador
+// so24b
+
 #include "controle.h"
 
 #include <stdlib.h>
@@ -41,12 +46,13 @@ void controle_laco(controle_t *self)
   do {
     if (self->estado == passo || self->estado == executando) {
       cpu_executa_1(self->cpu);
-      if (cpu_estado(self->cpu) != ERR_OK) {
-        self->estado = parado;
-      }
       relogio_tictac(self->relogio);
+
+      if (cpu_estado(self->cpu) != ERR_OK) self->estado = parado;
+      if (self->estado == passo) self->estado = parado;
     }
     console_tictac(self->console);
+
     controle_processa_comandos_da_console(self);
     controle_atualiza_estado_na_console(self);
   } while (self->estado != fim);
@@ -58,7 +64,6 @@ void controle_laco(controle_t *self)
 
 static void controle_processa_comandos_da_console(controle_t *self)
 {
-  if (self->estado == passo) self->estado = parado;
   char cmd = console_comando_externo(self->console);
   switch (cmd) {
     case 'F':

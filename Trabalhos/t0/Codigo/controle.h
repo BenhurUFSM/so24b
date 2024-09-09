@@ -1,15 +1,13 @@
+// controle.h
+// unidade de controle da CPU
+// simulador de computador
+// so24b
+
 #ifndef CONTROLE_H
 #define CONTROLE_H
 
-// controle
-// unidade de controle, controla o hardware simulado
-// em especial, contém o laço de execução de instruções
-// concentra os dispositivos de hardware
-
-
 typedef struct controle_t controle_t;
 
-#include "memoria.h"
 #include "cpu.h"
 #include "console.h"
 #include "relogio.h"

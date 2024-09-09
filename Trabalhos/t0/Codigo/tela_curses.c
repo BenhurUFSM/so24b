@@ -1,10 +1,11 @@
 // tela_curses.c
-// funções de acesso ao terminal físico, usando curses
-// se quiser portar para se livrar do curses, é aqui que tem que mexer
+// entrada e saída no terminal físico, usando curses
+// simulador de computador
+// so24b
+
+// se quiser se livrar do curses, é aqui que tem que mexer
 
 #include "tela.h"
-
-#include <stdarg.h>
 
 #include <curses.h>
 #include <locale.h>

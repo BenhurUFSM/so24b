@@ -1,3 +1,8 @@
+// programa.h
+// acesso a um arquivo contendo um programa em linguagem de máquina
+// simulador de computador
+// so24b
+
 #ifndef PROGRAMA_H
 #define PROGRAMA_H
 

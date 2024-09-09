@@ -1,5 +1,7 @@
 // console.c
-// implementação da console do operador e controle de terminais do simulador de computador de so24b
+// console do operador e controle de terminais
+// simulador de computador
+// so24b
 
 // INCLUDES {{{1
 

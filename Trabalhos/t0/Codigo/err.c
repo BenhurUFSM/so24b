@@ -1,3 +1,8 @@
+// err.c
+// códigos de erro da CPU
+// simulador de computador
+// so24b
+
 #include "err.h"
 
 static char *nomes[N_ERR] = {

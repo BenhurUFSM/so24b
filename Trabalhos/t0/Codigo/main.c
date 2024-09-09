@@ -1,3 +1,8 @@
+// main.c
+// inicializa e encerra a simulação
+// simulador de computador
+// so24b
+
 #include "controle.h"
 #include "programa.h"
 #include "memoria.h"
@@ -70,7 +75,7 @@ static void destroi_hardware(hardware_t *hw)
   mem_destroi(hw->mem);
 }
 
-// cria memória e inicializa com o conteúdo do programa
+// inicializa a memória com o conteúdo do programa
 static void init_mem(mem_t *mem, char *nome_do_executavel)
 {
   // programa para executar na nossa CPU

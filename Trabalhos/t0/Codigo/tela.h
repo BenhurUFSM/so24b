@@ -1,6 +1,7 @@
 // tela.h
 // entrada e saída no terminal físico
-// para o simulador de computador para so24b
+// simulador de computador
+// so24b
 
 #ifndef TELA_H
 #define TELA_H

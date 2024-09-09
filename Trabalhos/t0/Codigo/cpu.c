@@ -1,3 +1,9 @@
+// cpu.c
+// executor de instruções da CPU
+// simulador de computador
+// so24b
+
+// INCLUDES {{{1
 #include "cpu.h"
 #include "err.h"
 #include "instrucao.h"
@@ -8,6 +14,7 @@
 #include <string.h>
 #include <assert.h>
 
+// DECLARAÇÃO {{{1
 // uma CPU tem estado, memória, controlador de ES
 struct cpu_t {
   // registradores
@@ -22,6 +29,7 @@ struct cpu_t {
   es_t *es;
 };
 
+// CRIAÇÃO {{{1
 cpu_t *cpu_cria(mem_t *mem, es_t *es)
 {
   cpu_t *self;
@@ -46,6 +54,12 @@ void cpu_destroi(cpu_t *self)
   free(self);
 }
 
+err_t cpu_estado(cpu_t *self)
+{
+  return self->erro;
+}
+
+// IMPRESSÃO {{{1
 static void imprime_registradores(cpu_t *self, char *str)
 {
   sprintf(str, "PC=%04d A=%06d X=%06d",
@@ -67,7 +81,6 @@ static void imprime_instrucao(cpu_t *self, char *str)
     mem_le(self->mem, self->PC + 1, &A1);
     sprintf(str, " %02d %s %d", opcode, instrucao_nome(opcode), A1);
   }
-
 }
 
 static void imprime_erro(cpu_t *self, char *str)
@@ -94,6 +107,7 @@ void cpu_concatena_descricao(cpu_t *self, char *str)
   strcat(str, aux);
 }
 
+// ACESSO À MEMÓRIA E E/S {{{1
 
 // ---------------------------------------------------------------------
 // funções auxiliares para usar durante a execução das instruções
@@ -147,6 +161,7 @@ static bool poe_es(cpu_t *self, int dispositivo, int val)
   return false;
 }
 
+// INSTRUÇÕES {{{1
 // ---------------------------------------------------------------------
 // funções auxiliares para implementação de cada instrução
 
@@ -354,6 +369,7 @@ static void op_ESCR(cpu_t *self) // escrita de E/S
   }
 }
 
+// EXECUTA UMA INSTRUÇÃO {{{1
 void cpu_executa_1(cpu_t *self)
 {
   // não executa se CPU já estiver em erro
@@ -392,7 +408,4 @@ void cpu_executa_1(cpu_t *self)
   }
 }
 
-err_t cpu_estado(cpu_t *self)
-{
-  return self->erro;
-}
+// vim: foldmethod=marker

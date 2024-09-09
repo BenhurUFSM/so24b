@@ -1,16 +1,14 @@
+// cpu.h
+// executor de instruções da CPU
+// simulador de computador
+// so24b
+
 #ifndef CPU_H
 #define CPU_H
 
-// simulador da unidade de execução de instruções de uma CPU
-// executa a instrução no PC se possível, ou retorna erro
-
-// tem acesso a
-// - memória, onde está o programa e os dados -- alterável pelas instruções
-// - controlador de ES, para as instruções de ES
-
-#include "err.h"
 #include "memoria.h"
 #include "es.h"
+#include "err.h"
 
 typedef struct cpu_t cpu_t; // tipo opaco
 
@@ -21,9 +19,12 @@ cpu_t *cpu_cria(mem_t *mem, es_t *es);
 // destrói a unidade de execução
 void cpu_destroi(cpu_t *self);
 
-// executa uma instrução
+// executa a instrução apontada pelo PC
+//   se a CPU estiver em erro, não executa
+//   se a execução causar algum erro, altera o estado da CPU
 void cpu_executa_1(cpu_t *self);
 
+// retorna o estado da CPU (ERR_OK ou erro)
 err_t cpu_estado(cpu_t *self);
 
 // concatena a descrição do estado da CPU no final de str

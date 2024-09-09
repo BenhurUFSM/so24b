@@ -1,3 +1,8 @@
+// relogio.h
+// dispositivo de E/S para contar instruções executadas
+// simulador de computador
+// so24b
+
 #ifndef RELOGIO_H
 #define RELOGIO_H
 
