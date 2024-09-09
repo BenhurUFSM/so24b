@@ -1,6 +1,11 @@
 ; programa de exemplo para SO
 ; imprime "Oi, mundo!"
 ;
+; este programa não testa se o terminal pode receber o caractere
+;   se a string for curta (como é o caso), não dá nada, porque o
+;   controlador de terminais estará sempre pronto. se a string
+;   for maior que uma linha, caracteres serão perdidos.
+;
 ; um programa asm tem um comando por linha
 ; a partir do caractere ';' é comentário (ignorado pelo montador)
 ; um comando tem 3 partes:   [label][ instrução[ argumento]]
@@ -20,7 +25,7 @@
 ;     ESPACO x     -> coloca 'x' valores 0 nas próximas posições de memória
 ; lab DEFINE x     -> define o label 'lab' com o valor x e não com o end. atual
 
-; o dispositivo correspondente a tela do primeiro terminal é 2 (veja controle.c)
+; o dispositivo correspondente a tela do primeiro terminal é 2 (veja main.c)
 tela     DEFINE 2
          ; x = 0
          CARGI 0

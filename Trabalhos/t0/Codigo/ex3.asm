@@ -2,6 +2,7 @@
 ; imprime testando se o dispositivo está livre
 ;
 
+; esses números têm que corresponder ao que é registrado na controladora de E/S em main.c
 tela     DEFINE 2
 telaOK   DEFINE 3
 
@@ -10,6 +11,7 @@ telaOK   DEFINE 3
          CARGI str2
          CHAMA impstr
          PARA
+
 str1     string 'Oi, mundo! Que lindo dia para escrever um texto longo na '
 str2     string 'tela do terminal, sem ser interrompido por erros.'
 
