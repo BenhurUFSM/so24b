@@ -105,8 +105,8 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 
 ## Trabalhos, provas, exercícios
 
-|    id | assunto
-| ----: | :-----------
-| t0    | [simulador de computador](/Trabalhos/t0)
+|    id | prazo | assunto
+| ----: | :---- | :-----------
+| t0    |       | [simulador de computador](/Trabalhos/t0)
 
 
