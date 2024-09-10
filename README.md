@@ -38,6 +38,34 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    N |   data | assunto
 | ---: | :----: | :--------
 |    1 | 10set  | introdução
+|    2 | 12set  | 
+|    3 | 17set  | 
+|    4 | 19set  | 
+|    5 | 24set  | 
+|    6 |  1out  | 
+|    7 |  3out  | 
+|    8 |  8out  | 
+|    9 | 10out  | 
+|   10 | 15out  | 
+|   11 | 17out  | 
+|   12 | 22out  | 
+|   13 | 24out  | 
+|   14 | 29out  | 
+|   15 | 31out  | 
+|   16 |  5nov  | 
+|   17 |  7nov  | 
+|   18 | 12nov  | 
+|   19 | 14nov  | 
+|   20 | 19nov  | 
+|   21 | 21nov  | 
+|   22 | 26nov  | JAI
+|   23 | 28nov  | JAI
+|   24 |  3dez  | 
+|   25 |  5dez  | 
+|   26 | 10dez  | 
+|   27 | 12dez  | 
+|      | 17dez  | sexta-feira
+|      | 19dez  | sábado
 
 <!---->
 <!--|    2 | 10ago  | introdução (até seção 1.2 do livro)-->
