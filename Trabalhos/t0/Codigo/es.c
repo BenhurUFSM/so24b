@@ -40,7 +40,7 @@ void es_destroi(es_t *self)
   free(self);
 }
 
-bool es_registra_dispositivo(es_t *self, int dispositivo,
+bool es_registra_dispositivo(es_t *self, dispositivo_id_t dispositivo,
                              void *controladora, int id,
                              f_leitura_t f_leitura, f_escrita_t f_escrita)
 {
@@ -52,7 +52,7 @@ bool es_registra_dispositivo(es_t *self, int dispositivo,
   return true;
 }
 
-err_t es_le(es_t *self, int dispositivo, int *pvalor)
+err_t es_le(es_t *self, dispositivo_id_t dispositivo, int *pvalor)
 {
   if (dispositivo < 0 || dispositivo >= N_DISPOSITIVOS) return ERR_DISP_INV;
   if (self->dispositivos[dispositivo].f_leitura == NULL) return ERR_OP_INV;
@@ -61,7 +61,7 @@ err_t es_le(es_t *self, int dispositivo, int *pvalor)
   return self->dispositivos[dispositivo].f_leitura(controladora, id, pvalor);
 }
 
-err_t es_escreve(es_t *self, int dispositivo, int valor)
+err_t es_escreve(es_t *self, dispositivo_id_t dispositivo, int valor)
 {
   if (dispositivo < 0 || dispositivo >= N_DISPOSITIVOS) return ERR_DISP_INV;
   if (self->dispositivos[dispositivo].f_escrita == NULL) return ERR_OP_INV;

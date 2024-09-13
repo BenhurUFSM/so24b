@@ -25,7 +25,7 @@
 ;     ESPACO x     -> coloca 'x' valores 0 nas próximas posições de memória
 ; lab DEFINE x     -> define o label 'lab' com o valor x e não com o end. atual
 
-; o dispositivo correspondente a tela do primeiro terminal é 2 (veja main.c)
+; o dispositivo correspondente à tela do primeiro terminal é 2 (veja dispositivos.h)
 tela     DEFINE 2
          ; x = 0
          CARGI 0

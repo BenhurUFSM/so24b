@@ -10,6 +10,8 @@
 #include "relogio.h"
 #include "console.h"
 #include "terminal.h"
+#include "es.h"
+#include "dispositivos.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,19 +45,19 @@ static void cria_hardware(hardware_t *hw)
   // lê teclado, testa teclado, escreve tela, testa tela do terminal A
   terminal_t *terminal;
   terminal = console_terminal(hw->console, 'A');
-  es_registra_dispositivo(hw->es, 0, terminal, 0, terminal_leitura, NULL);
-  es_registra_dispositivo(hw->es, 1, terminal, 1, terminal_leitura, NULL);
-  es_registra_dispositivo(hw->es, 2, terminal, 2, NULL, terminal_escrita);
-  es_registra_dispositivo(hw->es, 3, terminal, 3, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_A_TECLADO    , terminal, 0, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_A_TECLADO_OK , terminal, 1, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_A_TELA       , terminal, 2, NULL, terminal_escrita);
+  es_registra_dispositivo(hw->es, D_TERM_A_TELA_OK    , terminal, 3, terminal_leitura, NULL);
   // lê teclado, testa teclado, escreve tela, testa tela do terminal B
   terminal = console_terminal(hw->console, 'B');
-  es_registra_dispositivo(hw->es, 4, terminal, 0, terminal_leitura, NULL);
-  es_registra_dispositivo(hw->es, 5, terminal, 1, terminal_leitura, NULL);
-  es_registra_dispositivo(hw->es, 6, terminal, 2, NULL, terminal_escrita);
-  es_registra_dispositivo(hw->es, 7, terminal, 3, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_B_TECLADO    , terminal, 0, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_B_TECLADO_OK , terminal, 1, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_B_TELA       , terminal, 2, NULL, terminal_escrita);
+  es_registra_dispositivo(hw->es, D_TERM_B_TELA_OK    , terminal, 3, terminal_leitura, NULL);
   // lê relógio virtual, relógio real
-  es_registra_dispositivo(hw->es, 8, hw->relogio, 0, relogio_leitura, NULL);
-  es_registra_dispositivo(hw->es, 9, hw->relogio, 1, relogio_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_RELOGIO_INSTRUCOES, hw->relogio, 0, relogio_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_RELOGIO_REAL      , hw->relogio, 1, relogio_leitura, NULL);
 
   // cria a unidade de execução e inicializa com a memória e o controlador de E/S
   hw->cpu = cpu_cria(hw->mem, hw->es);

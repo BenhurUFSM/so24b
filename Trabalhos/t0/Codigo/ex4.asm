@@ -1,6 +1,7 @@
 ; programa de exemplo para SO
 ; pede para o usuário adivinhar a letra secreta
 
+; definições devem corresponder ao que está em dispositivos.h
 teclado  define 0
 teclOK   define 1
 tela     define 2

@@ -1,7 +1,7 @@
 ; programa de exemplo para SO
 ; pede para o usuário adivinhar um número
 
-; definições para o terminal B
+; definições para o terminal B (ver dispositivos.h)
 TECL    DEFINE 4
 TECLOK  DEFINE 5
 TELA    DEFINE 6

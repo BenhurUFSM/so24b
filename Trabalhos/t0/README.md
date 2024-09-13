@@ -236,6 +236,7 @@ Os módulos são:
 - **cpu**, o executor de instruções, contém os registradores da CPU e o código para execução de cada instrução
 - **memoria**, a memória principal do processador, um vetor de inteiros e funções para acessá-lo
 - **es**, o controlador de E/S, faz o meio campo entre a CPU e os dispositivos de E/S; para que a CPU possa acessar um dispositivo, ele deve antes ser registrado neste módulo
+- **dispositivos.h**, contém a identificação dos dispositivos conhecidos (são registrados em main.c)
 - **relogio**, conta o número de instruções executadas e disponibiliza esse número e o relógio de tempo real do sistema, em 2 dispositivos de entrada
 - **terminal**, simula um terminal de vídeo mínimo, com uma linha de entrada e uma de saída
 - **console**, controla a tela e o teclado reais, gerencia os terminais, mostra mensagens do sistema e a console do operador (é o módulo mais complicado)
@@ -304,3 +305,10 @@ Altere o programa de adivinhação para usar esse dispositivo.
 Para auxiliar mais ainda na familiarização com a CPU, implemente um programa .asm que lê 10 (ou "n") valores desse novo dispositivo e imprime os valores no terminal. Pode aumentar o grau de dificuldade imprimindo eles em ordem crescente.
 
 Como a console toma conta da tela do terminal, não use printf no seu programa. Caso necessite que o programa imprima (para depuração por exemplo), use a função console_printf, que imprime na tela da console. Tudo que é impresso dessa forma é salvo em um arquivo de log.
+
+### Alterações ao código após a publicação
+
+Depois de publicado (em 10set), o código do t0 fio alterado no github:
+- 13set:
+   - comentários no Makefile sobre a necessidade dos caracteres "tab";
+   - inclusão de dispositivos.h, com nomes para a identificação dos dispositivos, e alterações nos arquivos afetados (principalmente main.c)

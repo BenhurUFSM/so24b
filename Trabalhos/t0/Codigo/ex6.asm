@@ -2,7 +2,7 @@
 ; lê dois números do teclado,
 ; imprime números entre eles na tela
 
-; definições para o terminal B
+; definições para o terminal B (ver dispositivos.h)
 TECL    DEFINE 4
 TECLOK  DEFINE 5
 TELA    DEFINE 6

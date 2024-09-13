@@ -7,6 +7,8 @@
 #define ES_H
 
 #include "err.h"
+#include "dispositivos.h"
+
 #include <stdbool.h>
 
 typedef struct es_t es_t; // declara o tipo como sendo uma estrutura opaca
@@ -38,7 +40,7 @@ void es_destroi(es_t *self);
 // se 'f_leitura' ou 'f_escrita' for NULL, considera-se que a operação
 //   correspondente é inválida.
 // retorna false se não foi possível registrar
-bool es_registra_dispositivo(es_t *self, int dispositivo,
+bool es_registra_dispositivo(es_t *self, dispositivo_id_t dispositivo,
                              void *controladora, int id,
                              f_leitura_t f_leitura, f_escrita_t f_escrita);
 
@@ -46,12 +48,12 @@ bool es_registra_dispositivo(es_t *self, int dispositivo,
 // retorna ERR_OK se bem sucedido, ou
 //   ERR_DISP_INV se dispositivo desconhecido
 //   ERR_OP_INV se operação inválida
-err_t es_le(es_t *self, int dispositivo, int *pvalor);
+err_t es_le(es_t *self, dispositivo_id_t dispositivo, int *pvalor);
 
 // escreve um inteiro em um dispositivo
 // retorna ERR_OK se bem sucedido, ou
 //   ERR_DISP_INV se dispositivo desconhecido
 //   ERR_OP_INV se operação inválida
-err_t es_escreve(es_t *self, int dispositivo, int valor);
+err_t es_escreve(es_t *self, dispositivo_id_t dispositivo, int valor);
 
 #endif // ES_H
