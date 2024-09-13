@@ -25,6 +25,7 @@ typedef enum {
   D_TERM_D_TELA_OK        = 15,
   D_RELOGIO_INSTRUCOES    = 16,
   D_RELOGIO_REAL          = 17,
+  N_DISPOSITIVOS
 } dispositivo_id_t;
 
 #endif // DISPOSITIVOS_H

@@ -21,8 +21,6 @@ typedef struct {
    int id;
 } dispositivo_t;
 
-#define N_DISPOSITIVOS 100 // número máximo de dispositivos suportados
-
 // define a estrutura opaca
 struct es_t {
   dispositivo_t dispositivos[N_DISPOSITIVOS];
