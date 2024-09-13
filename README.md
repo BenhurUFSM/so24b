@@ -38,7 +38,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    N |   data | assunto
 | ---: | :----: | :--------
 |    1 | 10set  | introdução
-|    2 | 12set  | 
+|    2 | 12set  | apresentação do código do t0 (em [C](Assuntos/c.md))
 |    3 | 17set  | 
 |    4 | 19set  | 
 |    5 | 24set  | 
