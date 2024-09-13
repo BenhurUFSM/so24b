@@ -308,7 +308,7 @@ Como a console toma conta da tela do terminal, não use printf no seu programa. 
 
 ### Alterações ao código após a publicação
 
-Depois de publicado (em 10set), o código do t0 fio alterado no github:
+Depois de publicado (em 10set), o código do t0 foi alterado no github:
 - 13set:
    - comentários no Makefile sobre a necessidade dos caracteres "tab";
    - inclusão de dispositivos.h, com nomes para a identificação dos dispositivos, e alterações nos arquivos afetados (principalmente main.c)
