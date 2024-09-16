@@ -24,9 +24,6 @@ void cpu_destroi(cpu_t *self);
 //   se a execução causar algum erro, altera o estado da CPU
 void cpu_executa_1(cpu_t *self);
 
-// retorna o estado da CPU (ERR_OK ou erro)
-err_t cpu_estado(cpu_t *self);
-
 // concatena a descrição do estado da CPU no final de str
 void cpu_concatena_descricao(cpu_t *self, char *str);
 

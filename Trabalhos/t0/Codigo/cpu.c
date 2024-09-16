@@ -54,11 +54,6 @@ void cpu_destroi(cpu_t *self)
   free(self);
 }
 
-err_t cpu_estado(cpu_t *self)
-{
-  return self->erro;
-}
-
 // IMPRESSÃO {{{1
 static void imprime_registradores(cpu_t *self, char *str)
 {

@@ -48,7 +48,6 @@ void controle_laco(controle_t *self)
       cpu_executa_1(self->cpu);
       relogio_tictac(self->relogio);
 
-      if (cpu_estado(self->cpu) != ERR_OK) self->estado = parado;
       if (self->estado == passo) self->estado = parado;
     }
     console_tictac(self->console);

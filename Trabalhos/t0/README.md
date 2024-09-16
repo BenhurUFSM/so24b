@@ -312,3 +312,6 @@ Depois de publicado (em 10set), o código do t0 foi alterado no github:
 - 13set:
    - comentários no Makefile sobre a necessidade dos caracteres "tab";
    - inclusão de dispositivos.h, com nomes para a identificação dos dispositivos, e alterações nos arquivos afetados (principalmente main.c)
+- 16set:
+   - não para o relógio quando a CPU tem erro (no t0 não faz diferença, mas no t1 sim)
+   - remove cpu_estado(), que só servia para isso
