@@ -39,7 +39,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 | ---: | :----: | :--------
 |    1 | 10set  | introdução
 |    2 | 12set  | apresentação do código do t0 (em [C](Assuntos/c.md))
-|    3 | 17set  | 
+|    3 | 17set  | origens de SO -- programa monitor, processamento em lote, multiprogramação
 |    4 | 19set  | 
 |    5 | 24set  | 
 |    6 |  1out  | 
