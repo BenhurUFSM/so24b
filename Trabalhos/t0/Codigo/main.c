@@ -12,6 +12,7 @@
 #include "terminal.h"
 #include "es.h"
 #include "dispositivos.h"
+#include "aleatorio.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,6 +28,7 @@ typedef struct {
   console_t *console;
   es_t *es;
   controle_t *controle;
+  dispositivo_random_t *random;
 } hardware_t;
 
 static void cria_hardware(hardware_t *hw)
@@ -59,6 +61,11 @@ static void cria_hardware(hardware_t *hw)
   es_registra_dispositivo(hw->es, D_RELOGIO_INSTRUCOES, hw->relogio, 0, relogio_leitura, NULL);
   es_registra_dispositivo(hw->es, D_RELOGIO_REAL      , hw->relogio, 1, relogio_leitura, NULL);
 
+   hw->random = random_cria();  // Cria o dispositivo aleatório
+  es_registra_dispositivo(hw->es, D_ALEATORIO, hw->random, 0, random_leitura, NULL);  // Registra o dispositivo aleatório
+  
+
+
   // cria a unidade de execução e inicializa com a memória e o controlador de E/S
   hw->cpu = cpu_cria(hw->mem, hw->es);
 
@@ -75,6 +82,7 @@ static void destroi_hardware(hardware_t *hw)
   relogio_destroi(hw->relogio);
   console_destroi(hw->console);
   mem_destroi(hw->mem);
+  random_destroi(hw->random);  // Destroi o dispositivo aleatório
 }
 
 // inicializa a memória com o conteúdo do programa
@@ -116,4 +124,3 @@ int main(int argc, char *argv[])
   // destroi tudo
   destroi_hardware(&hw);
 }
-
