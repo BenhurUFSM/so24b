@@ -40,7 +40,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    1 | 10set  | introdução
 |    2 | 12set  | apresentação do código do t0 (em [C](Assuntos/c.md))
 |    3 | 17set  | origens de SO -- programa monitor, processamento em lote, multiprogramação
-|    4 | 19set  | 
+|    4 | 19set  | processos -- modo supervisor, estado do processador, interrupção, estados de um processo, criação e morte
 |    5 | 24set  | 
 |    6 |  1out  | 
 |    7 |  3out  | 
@@ -107,6 +107,6 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 
 |    id | prazo | assunto
 | ----: | :---- | :-----------
-| t0    |       | [simulador de computador](/Trabalhos/t0)
+| t0    | 24set | [simulador de computador](/Trabalhos/t0) \| entrega = dispositivo rand, programa de adivinhar; forma de entrega: mail com arquivos ou link para git (faz um branch)
 
 
