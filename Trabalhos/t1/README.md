@@ -9,4 +9,7 @@
 - modo usuário e supervisor na cpu; instruções privilegiadas
   - cpu.[ch] - definição de cpu_modo_t, inicialização da CPU em modo supervisor, identificação das instruções privilegiadas, põe CPU em erro se executar instrução privilegiada em modo usuário
   - err.[ch] - novo erro, execução de instrução privilegiada
+- interrupção
+  - irq.[ch] - novos arquivos, com os códigos das interrupções possíveis (IRQs, *interrupt requests*) e os endereços onde a CPU salva/recupera os registradores quando aceita uma interrupção
+  - cpu.[ch] - função para iniciar uma interrupção (salva registradores, passa para modo supervisor, desvia para endereço 10) e para retornar de uma interrupção
 

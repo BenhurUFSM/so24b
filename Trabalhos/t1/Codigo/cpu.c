@@ -425,4 +425,54 @@ void cpu_executa_1(cpu_t *self)
   }
 }
 
+// INTERRUPÇÃO {{{1
+
+bool cpu_interrompe(cpu_t *self, irq_t irq)
+{
+  // só aceita interrupção em modo usuário ou quando a CPU está dormindo
+  if (self->modo != usuario && self->erro != ERR_CPU_PARADA) return false;
+
+  // A interrupção será atendida em modo supervisor. Já troca o modo aqui
+  //   para garantir que o estado do processador será salvo em endereços
+  //   físicos e não lógicos, e que se tem permissão para realizar esse
+  //   acesso (para quando existir proteção de memória)
+  self->modo = supervisor;
+
+  // esta é uma CPU boazinha, salva todo o estado interno da CPU no início da memória
+  poe_mem(self, IRQ_END_PC,          self->PC);
+  poe_mem(self, IRQ_END_A,           self->A);
+  poe_mem(self, IRQ_END_X,           self->X);
+  poe_mem(self, IRQ_END_erro,        self->erro);
+  poe_mem(self, IRQ_END_complemento, self->complemento);
+  poe_mem(self, IRQ_END_modo,        usuario);
+
+  // altera o estado da CPU para ela poder executar o tratador de interrupção
+  // vai iniciar o tratamento da interrupção no endereço 10, com o A contendo
+  //   o valor da requisição de interrupção e sem erro
+  // se o tratador da interrupção precisar do estado da CPU de antes da
+  //   interrupção, deve acessar o início da memória, onde esse estado foi salvo
+  self->PC = IRQ_END_TRATADOR;
+  self->A = irq;
+  self->erro = ERR_OK;
+
+  return true;
+}
+
+static void cpu_desinterrompe(cpu_t *self)
+{
+  // a interrupção retornou
+  // recupera o estado da CPU, para que volte a executar o que foi interrompido
+  //   quando a interrupção foi atendida
+  pega_mem(self, IRQ_END_PC,          &self->PC);
+  pega_mem(self, IRQ_END_A,           &self->A);
+  pega_mem(self, IRQ_END_X,           &self->X);
+  // não dá para pegar o erro nem o modo diretamente porque eles não são int
+  int dado;
+  pega_mem(self, IRQ_END_erro,        &dado);
+  self->erro = dado;
+  pega_mem(self, IRQ_END_complemento, &self->complemento);
+  pega_mem(self, IRQ_END_modo,        &dado);
+  self->modo = dado;
+}
+
 // vim: foldmethod=marker

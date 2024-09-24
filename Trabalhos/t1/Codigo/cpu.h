@@ -9,6 +9,7 @@
 #include "memoria.h"
 #include "es.h"
 #include "err.h"
+#include "irq.h"
 
 typedef struct cpu_t cpu_t; // tipo opaco
 
@@ -26,6 +27,13 @@ void cpu_destroi(cpu_t *self);
 //   se a CPU estiver em erro, não executa
 //   se a execução causar algum erro, altera o estado da CPU
 void cpu_executa_1(cpu_t *self);
+
+// implementa uma interrupção
+// passa para modo supervisor, salva o estado da CPU no início da memória,
+//   altera A para identificar a requisição de interrupção, altera PC para
+//   o endereço do tratador de interrupção
+// retorna true se interrupção foi aceita ou false caso contrário
+bool cpu_interrompe(cpu_t *self, irq_t irq);
 
 // concatena a descrição do estado da CPU no final de str
 void cpu_concatena_descricao(cpu_t *self, char *str);
