@@ -2,7 +2,7 @@
 ; lê dois números do teclado,
 ; imprime números entre eles na tela
 
-; definições para o terminal B (ver dispositivos.h)
+; definições para o terminal B
 TECL    DEFINE 4
 TECLOK  DEFINE 5
 TELA    DEFINE 6
@@ -76,7 +76,7 @@ li_3
         mult dez
         soma li_dig
         armm li_num
-        desv li_1
+        desv li_1     
 li_f
         ; final, o número está em li_num, o sinal em li_sig
         ; foi lido um caractere a mais, infelizmente não tem como devolvê-lo

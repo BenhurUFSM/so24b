@@ -1,5 +1,7 @@
 ## t1
 
+Breve texto aqui, com descrição do código e do que é o t1
+
 ### Alterações no código em relação ao t0
 
 - timer no relógio
@@ -20,3 +22,11 @@
   - cpu.[ch] - implementação das novas instruções, interface para programar o que será executado por CHAMAC
 - interrupção do timer
   - controle.c - no laço de execução, se o relógio pedir uma interrupção, informa a CPU
+- implementação do SO
+  - so.[ch] - novos arquivos, implementação parcial do SO
+  - trata_int.asm - codigo asm para iniciar e terminar o tratamento de uma interrupção, desviando para o SO
+  - init.asm - programa para ser o primeiro programa a ser executado pelo SO, chama outros programas
+  - p?.asm - programas chamados pelo init
+  - main.c - cria e inicializa o SO, não mais carrega um programa (agora é tarefa do SO)
+  - demais .asm - alterados para chamar o SO
+  - Makefile - inclui o que foi incluido, e uma gambiarra para montar cada asm em um endereço diferente

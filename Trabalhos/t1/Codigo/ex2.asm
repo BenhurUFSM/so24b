@@ -1,6 +1,5 @@
 ; programa de exemplo para SO
 ; imprime "Oi, mundo!"
-;
 ; agora com função
 ;
 ; esse processador não tem pilha de execução
@@ -10,7 +9,7 @@
 ; a instrução de retorno tem que conter o endereço inicial da função que está
 ;   retornando, para encontrar o endereço de para onde retornar
 
-; Este programa (como o ex1) não funciona para uma string grande.
+; Por que este programa (e o ex1) não funciona para uma string grande?
 ; Consegue alterar para que funcione nesse caso, antes de olhar o ex3?
 
 tela     DEFINE 2
@@ -20,12 +19,10 @@ tela     DEFINE 2
          CARGI str2
          CHAMA impstr
          PARA
-
 str1     string 'Oi, '
 str2     string "mundo!"
 
-; função para imprimir a string apontada por A
-impstr   espaco 1   ; espaço para o endereço de retorno
+impstr   espaco 1
          ; x = a
          TRAX
 mais1    ; a = m[x]

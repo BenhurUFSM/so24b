@@ -4,7 +4,6 @@
 // so24b
 
 #include "controle.h"
-#include "programa.h"
 #include "memoria.h"
 #include "cpu.h"
 #include "relogio.h"
@@ -12,12 +11,13 @@
 #include "terminal.h"
 #include "es.h"
 #include "dispositivos.h"
+#include "so.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
 // constantes
-#define MEM_TAM 2000        // tamanho da memória principal
+#define MEM_TAM 10000        // tamanho da memória principal
 
 // estrutura com os componentes do computador simulado
 typedef struct {
@@ -79,43 +79,21 @@ static void destroi_hardware(hardware_t *hw)
   mem_destroi(hw->mem);
 }
 
-// inicializa a memória com o conteúdo do programa
-static void init_mem(mem_t *mem, char *nome_do_executavel)
-{
-  // programa para executar na nossa CPU
-  programa_t *prog = prog_cria(nome_do_executavel);
-  if (prog == NULL) {
-    fprintf(stderr, "Erro na leitura do programa '%s'\n", nome_do_executavel);
-    exit(1);
-  }
-
-  int end_ini = prog_end_carga(prog);
-  int end_fim = end_ini + prog_tamanho(prog);
-
-  for (int end = end_ini; end < end_fim; end++) {
-    if (mem_escreve(mem, end, prog_dado(prog, end)) != ERR_OK) {
-      printf("Erro na carga da memória, endereco %d\n", end);
-      exit(1);
-    }
-  }
-  prog_destroi(prog);
-}
-
-int main(int argc, char *argv[])
+int main()
 {
   hardware_t hw;
-  char *nome_do_programa = "ex1.maq";
-  if (argc > 1) nome_do_programa = argv[1];
+  so_t *so;
 
   // cria o hardware
   cria_hardware(&hw);
-  // coloca um programa na memória
-  init_mem(hw.mem, nome_do_programa);
-
+  // cria o sistema operacional
+  so = so_cria(hw.cpu, hw.mem, hw.es, hw.console);
+  
   // executa o laço principal do controlador
   controle_laco(hw.controle);
 
   // destroi tudo
+  so_destroi(so);
   destroi_hardware(&hw);
 }
 
