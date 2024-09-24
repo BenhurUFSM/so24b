@@ -58,6 +58,8 @@ static void cria_hardware(hardware_t *hw)
   // lê relógio virtual, relógio real
   es_registra_dispositivo(hw->es, D_RELOGIO_INSTRUCOES, hw->relogio, 0, relogio_leitura, NULL);
   es_registra_dispositivo(hw->es, D_RELOGIO_REAL      , hw->relogio, 1, relogio_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_RELOGIO_TIMER     , hw->relogio, 2, relogio_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_RELOGIO_INTERRUPCAO, hw->relogio, 3, relogio_leitura, NULL);
 
   // cria a unidade de execução e inicializa com a memória e o controlador de E/S
   hw->cpu = cpu_cria(hw->mem, hw->es);

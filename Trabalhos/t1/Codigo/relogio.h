@@ -30,6 +30,10 @@ int relogio_agora(relogio_t *self);
 // Funções para acessar o relógio como dispositivo de E/S, com id:
 //   '0' para ler o relógio local (contador de instruções)
 //   '1' para ler o tempo de CPU consumido pelo simulador (em ms)
+//   '2' para ler ou escrever em quanto tempo uma interrupção será gerada
+//   '3' para ler ou escrever se uma interrupção está sendo pedida
 // Devem seguir o protocolo f_leitura_t e f_escrita_t declarados em es.h
 err_t relogio_leitura(void *disp, int id, int *pvalor);
+err_t relogio_escrita(void *disp, int id, int pvalor);
+
 #endif // RELOGIO_H
