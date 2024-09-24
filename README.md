@@ -41,7 +41,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    2 | 12set  | apresentação do código do t0 (em [C](Assuntos/c.md))
 |    3 | 17set  | origens de SO -- programa monitor, processamento em lote, multiprogramação
 |    4 | 19set  | processos -- modo supervisor, estado do processador, interrupção, estados de um processo, criação e morte
-|    5 | 24set  | 
+|    5 | 24set  | processos -- tabela de processos, funcionamento básico de um SO
 |    6 |  1out  | 
 |    7 |  3out  | 
 |    8 |  8out  | 
