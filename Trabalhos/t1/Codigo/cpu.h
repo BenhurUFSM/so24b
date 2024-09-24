@@ -12,6 +12,9 @@
 
 typedef struct cpu_t cpu_t; // tipo opaco
 
+// os modos de execução da CPU -- normalmente seria interno a CPU.c, mas o SO vai precisar disso
+typedef enum { supervisor, usuario } cpu_modo_t;
+
 // cria uma unidade de execução com acesso à memória e ao
 //   controlador de E/S fornecidos
 cpu_t *cpu_cria(mem_t *mem, es_t *es);

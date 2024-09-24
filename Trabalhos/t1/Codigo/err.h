@@ -15,6 +15,7 @@ typedef enum {
   ERR_OP_INV,        // operação inválida
   ERR_DISP_INV,      // dispositivo inválido
   ERR_OCUP,          // dispositivo ocupado
+  ERR_INSTR_PRIV,    // instrução privilegiada
   N_ERR              // número de erros
 } err_t;
 
