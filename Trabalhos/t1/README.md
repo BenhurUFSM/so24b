@@ -18,4 +18,5 @@
   - CHAMAC, executa código C (instrução configurável, será usada para executar todo o SO)
   - instrucao.[ch] - código e descrição das novas instruções
   - cpu.[ch] - implementação das novas instruções, interface para programar o que será executado por CHAMAC
-
+- interrupção do timer
+  - controle.c - no laço de execução, se o relógio pedir uma interrupção, informa a CPU

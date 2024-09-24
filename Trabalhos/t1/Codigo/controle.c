@@ -49,6 +49,14 @@ void controle_laco(controle_t *self)
       relogio_tictac(self->relogio);
 
       if (self->estado == passo) self->estado = parado;
+
+      // enquanto não tem controlador de interrupção, fala direto com o relógio
+      // o dispositivo 3 do relógio contém 1 se o timer expirou
+      int tem_int;
+      relogio_leitura(self->relogio, 3, &tem_int);
+      if (tem_int != 0) {
+        cpu_interrompe(self->cpu, IRQ_RELOGIO);
+      }
     }
     console_tictac(self->console);
 
