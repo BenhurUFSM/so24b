@@ -46,6 +46,9 @@ typedef enum {
   RET    = 22, // 2   retorna de subrotina   PC = mem[A1]
   LE     = 23, // 2   leitura de E/S         A = es[A1]
   ESCR   = 24, // 2   escrita de E/S         es[A1] = A
+  CHAMAS = 25, // 1   chama sistema          causa interrupção IRQ_SISTEMA
+  RETI   = 26, // 1   retorno de interrupção restaura estado da CPU
+  CHAMAC = 27, // 1   chama função C         simula código compilado
   // pseudo-instruções
   VALOR,       // inicializa próxima posição de memória
   STRING,      // inicializa próximas posições de memória

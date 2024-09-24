@@ -30,6 +30,9 @@ struct cpu_t {
   es_t *es;
   // identificação das instruções privilegiadas
   bool privilegiadas[N_OPCODE];
+  // função e argumento para implementar instrução CHAMAC
+  func_chamaC_t funcaoC;
+  void *argC;
 };
 
 // CRIAÇÃO {{{1
@@ -42,17 +45,22 @@ cpu_t *cpu_cria(mem_t *mem, es_t *es)
   self->mem = mem;
   self->es = es;
   // inicializa registradores
-  self->PC = 100;
+  self->PC = 0;
   self->A = 0;
   self->X = 0;
   self->erro = ERR_OK;
   self->complemento = 0;
-  self->modo = supervisor;
+  self->modo = usuario;
+  self->funcaoC = NULL;
   // inicializa instruções privilegiadas
   memset(self->privilegiadas, 0, sizeof(self->privilegiadas));
   self->privilegiadas[PARA] = true;
   self->privilegiadas[LE] = true;
   self->privilegiadas[ESCR] = true;
+  self->privilegiadas[RETI] = true;
+  self->privilegiadas[CHAMAC] = true;
+  // gera uma interrupção de reset, para o SO poder executar
+  cpu_interrompe(self, IRQ_RESET);
 
   return self;
 }
@@ -61,6 +69,12 @@ void cpu_destroi(cpu_t *self)
 {
   // eu nao criei memória nem es; quem criou que destrua!
   free(self);
+}
+
+void cpu_define_chamaC(cpu_t *self, func_chamaC_t funcaoC, void *argC)
+{
+  self->funcaoC = funcaoC;
+  self->argC = argC;
 }
 
 // IMPRESSÃO {{{1
@@ -386,15 +400,36 @@ static void op_ESCR(cpu_t *self) // escrita de E/S
   }
 }
 
-// EXECUTA UMA INSTRUÇÃO {{{1
-void cpu_executa_1(cpu_t *self)
+// declara uma função auxiliar (só para a interrupção e o retorno ficarem perto)
+static void cpu_desinterrompe(cpu_t *self);
+
+static void op_RETI(cpu_t *self) // retorno de interrupção
 {
-  // não executa se CPU já estiver em erro
-  if (self->erro != ERR_OK) return;
+  cpu_desinterrompe(self);
+}
 
-  int opcode;
-  if (!pega_opcode(self, &opcode)) return;
+static void op_CHAMAC(cpu_t *self) // chama função em C
+{
+  if (self->funcaoC == NULL) {
+    self->erro = ERR_OP_INV;
+    return;
+  }
+  self->A = self->funcaoC(self->argC, self->A);
+  self->PC += 1;
+}
 
+static void op_CHAMAS(cpu_t *self) // chamada de sistema
+{
+  self->PC += 1;
+  // causa uma interrupção, para forçar a execução do SO
+  cpu_interrompe(self, IRQ_SISTEMA);
+
+}
+
+// EXECUTA UMA INSTRUÇÃO {{{1
+
+static void executa_a_instrucao(cpu_t *self, int opcode)
+{
   switch (opcode) {
     case NOP:    op_NOP(self);    break;
     case PARA:   op_PARA(self);   break;
@@ -421,7 +456,31 @@ void cpu_executa_1(cpu_t *self)
     case RET:    op_RET(self);    break;
     case LE:     op_LE(self);     break;
     case ESCR:   op_ESCR(self);   break;
+    case RETI:   op_RETI(self);   break;
+    case CHAMAC: op_CHAMAC(self); break;
+    case CHAMAS: op_CHAMAS(self); break;
     default:     self->erro = ERR_INSTR_INV;
+  }
+}
+
+void cpu_executa_1(cpu_t *self)
+{
+  // não executa se CPU já estiver em erro
+  if (self->erro != ERR_OK) return;
+
+  int opcode;
+  if (pega_opcode(self, &opcode)) {
+    executa_a_instrucao(self, opcode);
+  }
+
+  // se a CPU entrou em erro, causa uma interrupção
+  // a menos que a CPU tenha parado, porque a única forma de a CPU entrar nesse
+  //   estado é pela execução da instrução PARA em modo supervisor, e é a forma de
+  //   o SO dizer que não tem mais nada para fazer, e deve-se deixar a CPU dormindo
+  //   até que venha uma interrupção de E/S
+  if (self->erro != ERR_OK && self->erro != ERR_CPU_PARADA) {
+    // se a interrupção não é aceita nesse ponto, temos um problema grave...
+    assert(cpu_interrompe(self, IRQ_ERR_CPU));
   }
 }
 
