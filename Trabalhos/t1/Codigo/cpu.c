@@ -53,8 +53,6 @@ cpu_t *cpu_cria(mem_t *mem, es_t *es)
   self->privilegiadas[PARA] = true;
   self->privilegiadas[LE] = true;
   self->privilegiadas[ESCR] = true;
-  self->privilegiadas[RETI] = true;
-  self->privilegiadas[CHAMAC] = true;
 
   return self;
 }
