@@ -55,6 +55,18 @@ static void cria_hardware(hardware_t *hw)
   es_registra_dispositivo(hw->es, D_TERM_B_TECLADO_OK , terminal, 1, terminal_leitura, NULL);
   es_registra_dispositivo(hw->es, D_TERM_B_TELA       , terminal, 2, NULL, terminal_escrita);
   es_registra_dispositivo(hw->es, D_TERM_B_TELA_OK    , terminal, 3, terminal_leitura, NULL);
+  // lê teclado, testa teclado, escreve tela, testa tela do terminal C
+  terminal = console_terminal(hw->console, 'C');
+  es_registra_dispositivo(hw->es, D_TERM_C_TECLADO    , terminal, 0, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_C_TECLADO_OK , terminal, 1, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_C_TELA       , terminal, 2, NULL, terminal_escrita);
+  es_registra_dispositivo(hw->es, D_TERM_C_TELA_OK    , terminal, 3, terminal_leitura, NULL);
+  // lê teclado, testa teclado, escreve tela, testa tela do terminal D
+  terminal = console_terminal(hw->console, 'D');
+  es_registra_dispositivo(hw->es, D_TERM_D_TECLADO    , terminal, 0, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_D_TECLADO_OK , terminal, 1, terminal_leitura, NULL);
+  es_registra_dispositivo(hw->es, D_TERM_D_TELA       , terminal, 2, NULL, terminal_escrita);
+  es_registra_dispositivo(hw->es, D_TERM_D_TELA_OK    , terminal, 3, terminal_leitura, NULL);
   // lê relógio virtual, relógio real
   es_registra_dispositivo(hw->es, D_RELOGIO_INSTRUCOES, hw->relogio, 0, relogio_leitura, NULL);
   es_registra_dispositivo(hw->es, D_RELOGIO_REAL      , hw->relogio, 1, relogio_leitura, NULL);
