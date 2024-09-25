@@ -506,8 +506,8 @@ bool cpu_interrompe(cpu_t *self, irq_t irq)
   poe_mem(self, IRQ_END_modo,        usuario);
 
   // altera o estado da CPU para ela poder executar o tratador de interrupção
-  // vai iniciar o tratamento da interrupção no endereço 10, com o A contendo
-  //   o valor da requisição de interrupção e sem erro
+  // vai iniciar o tratamento da interrupção no endereço IRQ_END_TRATADOR,
+  //   com o A contendo o valor da requisição de interrupção e sem erro
   // se o tratador da interrupção precisar do estado da CPU de antes da
   //   interrupção, deve acessar o início da memória, onde esse estado foi salvo
   self->PC = IRQ_END_TRATADOR;
