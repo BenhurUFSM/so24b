@@ -3,3 +3,4 @@ tags
 *.d
 *.maq
 log_da_console
+.cache
