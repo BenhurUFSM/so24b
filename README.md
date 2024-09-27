@@ -42,7 +42,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    3 | 17set  | origens de SO -- programa monitor, processamento em lote, multiprogramação
 |    4 | 19set  | processos -- modo supervisor, estado do processador, interrupção, estados de um processo, criação e morte
 |    5 | 24set  | processos -- tabela de processos, funcionamento básico de um SO
-|    6 | 24set  | 
+|    6 | 26set  | apresentação do t1
 |    7 |  1out  | 
 |    8 |  3out  | 
 |    9 |  8out  | 
