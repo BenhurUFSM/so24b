@@ -1,8 +1,8 @@
-## Respostas a perguntas
+## RAP - Respostas a perguntas
 
 ### Executa?
 
-Da forma como o código está, executando o programa ele vai executar o programa init, até que ele pede para criar um processo, então ele passa a executar o programa p1. Mas não vai voltar a executar o init, porque não tem processos.
+Da forma como o código foi fornecido, executando o programa ele vai executar o programa init, até que ele pede para criar um processo, então ele passa a executar o programa p1. Mas não vai voltar a executar o init, porque não tem processos.
 Aparece na tela uma mensagem de carga de trata_int, e logo que a simulação começa, tem uma mensagem de carga do init, e as mensagens que o SO imprime a cada chamada.
 
 ### Como funciona a Inicialização
