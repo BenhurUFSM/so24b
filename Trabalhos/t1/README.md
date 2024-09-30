@@ -1,5 +1,7 @@
 ## t1 - implementação de processos
 
+Agora tem um (RAP)[RAP.md], com as respostas às perguntas recebidas.
+
 No t0, o simulador era dedicado a executar um só programa, colocado na memória na inicialização do simulador, e não podia ser alterado sem interromper e reiniciar a simulação.
 Agora teremos um mini sistema operacional, para permitir a execução de mais de um programa.
 Nesse SO, será implementado:
