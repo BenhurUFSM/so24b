@@ -43,7 +43,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    4 | 19set  | processos -- modo supervisor, estado do processador, interrupção, estados de um processo, criação e morte
 |    5 | 24set  | processos -- tabela de processos, funcionamento básico de um SO
 |    6 | 26set  | apresentação do t1
-|    7 |  1out  | vade retro virus
+|    7 |  1out  | vade retro vīrus
 |    8 |  3out  | 
 |    9 |  8out  | 
 |   10 | 10out  | 
