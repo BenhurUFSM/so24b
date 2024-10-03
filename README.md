@@ -43,28 +43,28 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    4 | 19set  | processos -- modo supervisor, estado do processador, interrupção, estados de um processo, criação e morte
 |    5 | 24set  | processos -- tabela de processos, funcionamento básico de um SO
 |    6 | 26set  | apresentação do t1
-|    7 |  1out  | [vade retro vīrus](https://www.ufsm.br/2024/09/30/nota-atividades-administrativas-e-academicas-presenciais-suspensas-ate-01-de-outubro)
-|    8 |  3out  | 
-|    9 |  8out  | 
-|   10 | 10out  | 
-|   11 | 15out  | 
-|   12 | 17out  | 
-|   13 | 22out  | 
-|   14 | 24out  | 
-|   15 | 29out  | 
-|   16 | 31out  | 
-|   17 |  5nov  | 
-|   18 |  7nov  | 
-|   19 | 12nov  | 
-|   20 | 14nov  | 
-|   21 | 19nov  | 
-|   22 | 21nov  | 
-|   23 | 26nov  | JAI
-|   24 | 28nov  | JAI
-|   25 |  3dez  | 
-|   26 |  5dez  | 
-|   27 | 10dez  | 
-|   28 | 12dez  | 
+|      |  1out  | [vade retro vīrus](https://www.ufsm.br/2024/09/30/nota-atividades-administrativas-e-academicas-presenciais-suspensas-ate-01-de-outubro)
+|    7 |  3out  | escalonamento
+|    8 |  8out  | 
+|    9 | 10out  | 
+|   10 | 15out  | 
+|   11 | 17out  | 
+|   12 | 22out  | 
+|   13 | 24out  | 
+|   14 | 29out  | 
+|   15 | 31out  | 
+|   16 |  5nov  | 
+|   17 |  7nov  | 
+|   18 | 12nov  | 
+|   19 | 14nov  | 
+|   20 | 19nov  | 
+|   21 | 21nov  | 
+|   22 | 26nov  | JAI
+|   23 | 28nov  | JAI
+|   24 |  3dez  | 
+|   25 |  5dez  | 
+|   26 | 10dez  | 
+|   27 | 12dez  | 
 |      | 17dez  | sexta-feira
 |      | 19dez  | sábado
 
