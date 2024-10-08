@@ -1,3 +1,8 @@
+// irq.c
+// definições de constantes para interrupção
+// simulador de computador
+// so24b
+
 #include "irq.h"
 
 static char *nomes[N_IRQ] = {

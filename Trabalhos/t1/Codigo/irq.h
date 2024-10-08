@@ -1,3 +1,8 @@
+// irq.h
+// definições de constantes para interrupção
+// simulador de computador
+// so24b
+
 #ifndef IRQ_H
 #define IRQ_H
 
