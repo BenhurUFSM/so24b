@@ -47,7 +47,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    7 |  3out  | mais detalhes do t1; escalonamento
 |    8 |  8out  | algoritmos de escalonamento
 |    9 | 10out  | *threads*
-|   10 | 15out  | 
+|   10 | 15out  | [programa para teste de threads](Testes/thr.c), comunicação entre processos
 |   11 | 17out  | 
 |   12 | 22out  | 
 |   13 | 24out  | 
