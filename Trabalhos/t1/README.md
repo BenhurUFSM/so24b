@@ -124,7 +124,7 @@ O *quantum* é definido como um múltiplo do intervalo de interrupção do reló
 Implemente um segundo escalonador, semelhante ao circular: os processos têm um quantum, e sofrem preempção quando esse quantum é excedido. Os processos têm também uma prioridade, e o escalonador escolhe o processo com maior prioridade entre os prontos.
 A prioridade de um processo é calculada da seguinte forma:
 - quando um processo é criado, recebe prioridade 0,5
-- quando um processo perde o processador (porque bloqueou ou porque acabou seu quantum), a prioridade do processo é calculada como `prio = (prio + t_exec/t_quantum)`, onde `t_exec` é o tempo desde que ele foi escolhido para executar e `t_quantum` é o tempo do quantum. O `t_exec` é o quantum menos o valor da variável que o escalonador decrementa a cada interrupção.
+- quando um processo perde o processador (porque bloqueou ou porque acabou seu quantum), a prioridade do processo é calculada como `prio = (prio + t_exec/t_quantum) / 2`, onde `t_exec` é o tempo desde que ele foi escolhido para executar e `t_quantum` é o tempo do quantum. O `t_exec` é o quantum menos o valor da variável que o escalonador decrementa a cada interrupção.
 
 O SO deve manter algumas métricas, que devem ser apresentadas no final da execução (quando o init morrer):
 - número de processos criados

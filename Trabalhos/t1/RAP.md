@@ -115,3 +115,8 @@ salvos na tabela de processos e quando esses valores são recuperados da tabela
 do processos. Todos os demais acessos a registradores devem ser feitos na
 entrada da tabela correspondente ao processo sendo manipulado pelo SO.
 
+### Sobre a prioridade
+
+Tinha um erro em `so.c` no cálculo da prioridade, era para ser a média, mas tava faltando dividir por 2.
+
+O cálculo da prioridade resulta em um número menor para o processo que deve ser prioritário. Então, o processo a ser escolhido é aquele que tem o menor valor no campo prioridade.
