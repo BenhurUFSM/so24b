@@ -48,8 +48,8 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    8 |  8out  | algoritmos de escalonamento
 |    9 | 10out  | *threads*
 |   10 | 15out  | [programa para teste de threads](Testes/thr.c), comunicação entre processos
-|   11 | 17out  | 
-|   12 | 22out  | 
+|   11 | 17out  | comunicação entre processos (TSL, semáforo, mutex, monitor, variável de condição; produtor-consumidor)
+|   12 | 22out  | comunicação entre processos (barreira; jantar dos filósofos, leitores+escritores)
 |   13 | 24out  | 
 |   14 | 29out  | 
 |   15 | 31out  | 
