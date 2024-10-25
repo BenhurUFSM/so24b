@@ -103,7 +103,7 @@ int main()
   // cria o hardware
   cria_hardware(&hw);
   // cria o sistema operacional
-  so = so_cria(hw.cpu, hw.mem, hw.es, hw.console);
+  so = so_cria(hw.cpu, hw.mem, hw.mmu, hw.es, hw.console);
   
   // executa o laço principal do controlador
   controle_laco(hw.controle);

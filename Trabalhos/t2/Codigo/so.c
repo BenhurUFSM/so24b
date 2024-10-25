@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <assert.h>
 
 // CONSTANTES E TIPOS {{{1
 // intervalo entre interrupções do relógio
@@ -20,6 +21,7 @@
 struct so_t {
   cpu_t *cpu;
   mem_t *mem;
+  mmu_t *mmu;
   es_t *es;
   console_t *console;
   bool erro_interno;
@@ -38,13 +40,16 @@ static bool copia_str_da_mem(int tam, char str[tam], mem_t *mem, int ender);
 
 // CRIAÇÃO {{{1
 
-so_t *so_cria(cpu_t *cpu, mem_t *mem, es_t *es, console_t *console)
+
+so_t *so_cria(cpu_t *cpu, mem_t *mem, mmu_t *mmu,
+              es_t *es, console_t *console)
 {
   so_t *self = malloc(sizeof(*self));
-  if (self == NULL) return NULL;
+  assert(self != NULL);
 
   self->cpu = cpu;
   self->mem = mem;
+  self->mmu = mmu;
   self->es = es;
   self->console = console;
   self->erro_interno = false;

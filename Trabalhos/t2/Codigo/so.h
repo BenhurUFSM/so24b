@@ -9,11 +9,13 @@
 typedef struct so_t so_t;
 
 #include "memoria.h"
+#include "mmu.h"
 #include "cpu.h"
 #include "es.h"
 #include "console.h" // só para uma gambiarra
 
-so_t *so_cria(cpu_t *cpu, mem_t *mem, es_t *es, console_t *console);
+so_t *so_cria(cpu_t *cpu, mem_t *mem, mmu_t *mmu,
+              es_t *es, console_t *console);
 void so_destroi(so_t *self);
 
 // Chamadas de sistema
