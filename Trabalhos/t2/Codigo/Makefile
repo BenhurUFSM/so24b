@@ -9,7 +9,7 @@ LDLIBS = -lcurses
 # arquivos objeto compilados (.o) que compõem o simulador (main) e o montador
 OBJS_MAIN = cpu.o es.o memoria.o relogio.o console.o terminal.o tela_curses.o \
 		instrucao.o err.o programa.o controle.o main.o \
-		so.o irq.o
+		so.o irq.o tabpag.o mmu.o
 OBJS_MONTADOR = instrucao.o err.o montador.o
 OBJS = ${OBJS_MAIN} ${OBJS_MONTADOR}
 # arquivos .maq a gerar, com seus endereços
