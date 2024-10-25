@@ -26,7 +26,7 @@ struct cpu_t {
   int complemento;
   cpu_modo_t modo;
   // acesso a dispositivos externos
-  mem_t *mem;
+  mmu_t *mmu;
   es_t *es;
   // identificação das instruções privilegiadas
   bool privilegiadas[N_OPCODE];
@@ -36,13 +36,13 @@ struct cpu_t {
 };
 
 // CRIAÇÃO {{{1
-cpu_t *cpu_cria(mem_t *mem, es_t *es)
+cpu_t *cpu_cria(mmu_t *mmu, es_t *es)
 {
   cpu_t *self;
   self = malloc(sizeof(*self));
   assert(self != NULL);
 
-  self->mem = mem;
+  self->mmu = mmu;
   self->es = es;
   // inicializa registradores
   self->PC = 0;
@@ -67,7 +67,7 @@ cpu_t *cpu_cria(mem_t *mem, es_t *es)
 
 void cpu_destroi(cpu_t *self)
 {
-  // eu nao criei memória nem es; quem criou que destrua!
+  // eu nao criei MMU nem es; quem criou que destrua!
   free(self);
 }
 
@@ -88,7 +88,7 @@ static void imprime_registradores(cpu_t *self, char *str)
 static void imprime_instrucao(cpu_t *self, char *str)
 {
   int opcode;
-  if (mem_le(self->mem, self->PC, &opcode) != ERR_OK) {
+  if (mmu_le(self->mmu, self->PC, &opcode, self->modo) != ERR_OK) {
     strcpy(str, " PC inválido");
     return;
   }
@@ -97,7 +97,7 @@ static void imprime_instrucao(cpu_t *self, char *str)
     // imprime argumento da instrução, se houver
   } else {
     int A1;
-    mem_le(self->mem, self->PC + 1, &A1);
+    mmu_le(self->mmu, self->PC + 1, &A1, self->modo);
     sprintf(str, " %02d %s %d", opcode, instrucao_nome(opcode), A1);
   }
 }
@@ -135,7 +135,7 @@ void cpu_concatena_descricao(cpu_t *self, char *str)
 // lê um valor da memória
 static bool pega_mem(cpu_t *self, int endereco, int *pval)
 {
-  self->erro = mem_le(self->mem, endereco, pval);
+  self->erro = mmu_le(self->mmu, endereco, pval, self->modo);
   if (self->erro == ERR_OK) return true;
   self->complemento = endereco;
   return false;
@@ -145,11 +145,7 @@ static bool pega_mem(cpu_t *self, int endereco, int *pval)
 // retorna true se ele pode ser executado, ou põe em erro o motivo de não poder
 static bool pega_opcode(cpu_t *self, int *popc)
 {
-  // não pode executar antes do endereço 100 em modo usuário
-  if (self->modo == usuario && self->PC < 100) {
-    self->erro = ERR_END_INV;
-    return false;
-  }
+  // não tem que testar endereços, é tarefa da mmu
   // não pode executar se houver erro na leitura da memória
   if (!pega_mem(self, self->PC, popc)) return false;
   // pode executar se tiver privilégio para isso
@@ -168,7 +164,7 @@ static bool pega_A1(cpu_t *self, int *pA1)
 // escreve um valor na memória
 static bool poe_mem(cpu_t *self, int endereco, int val)
 {
-  self->erro = mem_escreve(self->mem, endereco, val);
+  self->erro = mmu_escreve(self->mmu, endereco, val, self->modo);
   if (self->erro == ERR_OK) return true;
   self->complemento = endereco;
   return false;

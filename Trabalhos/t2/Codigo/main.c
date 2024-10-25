@@ -5,6 +5,7 @@
 
 #include "controle.h"
 #include "memoria.h"
+#include "mmu.h"
 #include "cpu.h"
 #include "relogio.h"
 #include "console.h"
@@ -22,6 +23,7 @@
 // estrutura com os componentes do computador simulado
 typedef struct {
   mem_t *mem;
+  mmu_t *mmu;
   cpu_t *cpu;
   relogio_t *relogio;
   console_t *console;
@@ -31,8 +33,9 @@ typedef struct {
 
 static void cria_hardware(hardware_t *hw)
 {
-  // cria a memória
+  // cria a memória e a MMU
   hw->mem = mem_cria(MEM_TAM);
+  hw->mmu = mmu_cria(hw->mem);
 
   // cria dispositivos de E/S
   hw->console = console_cria();
@@ -73,8 +76,8 @@ static void cria_hardware(hardware_t *hw)
   es_registra_dispositivo(hw->es, D_RELOGIO_TIMER     , hw->relogio, 2, relogio_leitura, relogio_escrita);
   es_registra_dispositivo(hw->es, D_RELOGIO_INTERRUPCAO,hw->relogio, 3, relogio_leitura, relogio_escrita);
 
-  // cria a unidade de execução e inicializa com a memória e o controlador de E/S
-  hw->cpu = cpu_cria(hw->mem, hw->es);
+  // cria a unidade de execução e inicializa com a MMU e E/S
+  hw->cpu = cpu_cria(hw->mmu, hw->es);
 
   // cria o controlador da CPU e inicializa com a unidade de execução, a console e
   //   o relógio
@@ -88,6 +91,7 @@ static void destroi_hardware(hardware_t *hw)
   es_destroi(hw->es);
   relogio_destroi(hw->relogio);
   console_destroi(hw->console);
+  mmu_destroi(hw->mmu);
   mem_destroi(hw->mem);
 }
 

@@ -6,23 +6,23 @@
 #ifndef CPU_H
 #define CPU_H
 
-#include "memoria.h"
+typedef struct cpu_t cpu_t; // tipo opaco
+
+// os modos de execução da CPU
+typedef enum { supervisor, usuario } cpu_modo_t;
+
 #include "es.h"
 #include "err.h"
 #include "irq.h"
-
-typedef struct cpu_t cpu_t; // tipo opaco
-
-// os modos de execução da CPU -- normalmente seria interno a CPU.c, mas o SO vai precisar disso
-typedef enum { supervisor, usuario } cpu_modo_t;
+#include "mmu.h"
 
 // tipo da função a ser chamada quando executar a instrução CHAMAC
 typedef int (*func_chamaC_t)(void *argC, int reg_A);
 
 
-// cria uma unidade de execução com acesso à memória e ao
+// cria uma unidade de execução com acesso à MMU e ao
 //   controlador de E/S fornecidos
-cpu_t *cpu_cria(mem_t *mem, es_t *es);
+cpu_t *cpu_cria(mmu_t *mmu, es_t *es);
 
 // destrói a unidade de execução
 void cpu_destroi(cpu_t *self);
