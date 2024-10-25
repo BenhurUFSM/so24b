@@ -40,7 +40,7 @@ bool tem_numero(char *s, int *num)
 
 #define MEM_TAM 10000    // aumentar para programas maiores
 int mem[MEM_TAM];
-int mem_pos = 100;      // próxima posição livre da memória
+int mem_pos = 0;        // próxima posição livre da memória
 int mem_min = -1;       // menor endereço preenchido
 int mem_max = -1;       // maior endereço preenchido
 
