@@ -14,6 +14,7 @@ static char *nomes[N_ERR] = {
   [ERR_DISP_INV]    = "Dispositivo inválido",
   [ERR_OCUP]        = "Dispositivo ocupado",
   [ERR_INSTR_PRIV]  = "Instrução privilegiada",
+  [ERR_PAG_AUSENTE] = "Página ausente",
 };
 
 // retorna o nome de erro
