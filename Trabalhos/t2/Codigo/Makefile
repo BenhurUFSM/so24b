@@ -14,7 +14,7 @@ OBJS_MONTADOR = instrucao.o err.o montador.o
 OBJS = ${OBJS_MAIN} ${OBJS_MONTADOR}
 # arquivos .maq a gerar, com seus endereços
 MAQS = trata_int.maq init.maq ex1.maq ex2.maq ex3.maq ex4.maq ex5.maq ex6.maq p1.maq p2.maq p3.maq
-ENDS = 10            100      1000    2000    3000    4000    5000    6000    7000   8000   9000
+ENDS = 10            0        0       0       0       0       0       0       0      0      0
 TARGETS = main montador ${MAQS}
 
 # arquivos que devem ser feitos, se não for especificado no comando do make
