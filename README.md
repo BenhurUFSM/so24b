@@ -51,8 +51,8 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |   11 | 17out  | comunicação entre processos (TSL, semáforo, mutex, monitor, variável de condição; produtor-consumidor)
 |   12 | 22out  | comunicação entre processos (barreira; jantar dos filósofos, leitores+escritores)
 |   13 | 24out  | gerenciamento de memória
-|   14 | 29out  | 
-|   15 | 31out  | 
+|   14 | 29out  | gerenciamento de memória (memória virtual, segmentação, paginação)
+|   15 | 31out  | gerenciamento de memória (TLB, tabela de páginas invertida)
 |   16 |  5nov  | 
 |   17 |  7nov  | 
 |   18 | 12nov  | 
@@ -109,6 +109,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    id | prazo | assunto
 | ----: | :---- | :-----------
 | t0    | 24set | [simulador de computador](/Trabalhos/t0) \| entrega = dispositivo rand, programa de adivinhar; forma de entrega: mail com arquivos ou link para git (faz um branch)
-| t1    |       | [implementação de processos](/Trabalhos/t1)
+| t1    | 11nov | [implementação de processos](/Trabalhos/t1)
+| t2    |       | [gerenciamento de memória](/Trabalhos/t2)
 
 
