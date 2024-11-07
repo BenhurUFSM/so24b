@@ -53,8 +53,8 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |   13 | 24out  | gerenciamento de memória
 |   14 | 29out  | gerenciamento de memória (memória virtual, segmentação, paginação)
 |   15 | 31out  | gerenciamento de memória (TLB, tabela de páginas invertida)
-|   16 |  5nov  | 
-|   17 |  7nov  | 
+|   16 |  5nov  | gerenciamento de memória
+|   17 |  7nov  | apresentação do t2
 |   18 | 12nov  | 
 |   19 | 14nov  | 
 |   20 | 19nov  | 
