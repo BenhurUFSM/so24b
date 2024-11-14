@@ -109,7 +109,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |    id | prazo | assunto
 | ----: | :---- | :-----------
 | t0    | 24set | [simulador de computador](/Trabalhos/t0) \| entrega = dispositivo rand, programa de adivinhar; forma de entrega: mail com arquivos ou link para git (faz um branch)
-| t1    | 11nov | [implementação de processos](/Trabalhos/t1)
+| t1    | 18nov | [implementação de processos](/Trabalhos/t1)
 | t2    |       | [gerenciamento de memória](/Trabalhos/t2)
 
 
