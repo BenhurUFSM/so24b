@@ -55,18 +55,18 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |   15 | 31out  | gerenciamento de memória (TLB, tabela de páginas invertida)
 |   16 |  5nov  | gerenciamento de memória
 |   17 |  7nov  | apresentação do t2
-|   18 | 12nov  | 
-|   19 | 14nov  | 
-|   20 | 19nov  | 
-|   21 | 21nov  | 
+|   18 | 12nov  | sistemas de arquivos
+|   19 | 14nov  | sistemas de arquivos 
+|   20 | 19nov  | sistemas de arquivos 
+|   21 | 21nov  | gerenciamento de entrada e saída
 |   22 | 26nov  | JAI
 |   23 | 28nov  | JAI
-|   24 |  3dez  | 
-|   25 |  5dez  | 
-|   26 | 10dez  | 
+|   24 |  3dez  | gerenciamento de entrada e saída
+|   25 |  5dez  | deadlocks
+|   26 | 10dez  | deadlocks
 |   27 | 12dez  | 
 |      | 17dez  | sexta-feira
-|      | 19dez  | sábado
+|      | 19dez  | exame
 
 <!---->
 <!--|    2 | 10ago  | introdução (até seção 1.2 do livro)-->
@@ -111,5 +111,6 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 | t0    | 24set | [simulador de computador](/Trabalhos/t0) \| entrega = dispositivo rand, programa de adivinhar; forma de entrega: mail com arquivos ou link para git (faz um branch)
 | t1    | 18nov | [implementação de processos](/Trabalhos/t1)
 | t2    |       | [gerenciamento de memória](/Trabalhos/t2)
+| final | 11dez | [entrega final](final.md)
 
 
