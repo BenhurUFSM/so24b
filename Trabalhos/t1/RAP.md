@@ -120,3 +120,13 @@ entrada da tabela correspondente ao processo sendo manipulado pelo SO.
 Tinha um erro em `so.c` no cálculo da prioridade, era para ser a média, mas tava faltando dividir por 2.
 
 O cálculo da prioridade resulta em um número menor para o processo que deve ser prioritário. Então, o processo a ser escolhido é aquele que tem o menor valor no campo prioridade.
+
+### Como assim relatório?
+
+Google é seu amiguinho:
+- https://engenharia360.com/elaborar-um-relatorio-experimental/
+- https://edisciplinas.usp.br/pluginfile.php/3072406/mod_resource/content/4/Como%20fazer%20um%20bom%20relatorio.pdf
+- https://docente.ifrn.edu.br/jonathanpereira/disciplinas/organizacao-e-manutencao-de-computadores/aulas-de-laboratorio/modelo-para-relatorios-de-aulas-de-laboratorio/view
+- https://edisciplinas.usp.br/pluginfile.php/1034718/mod_resource/content/1/Referencias.pdf
+
+Não precisa ser algo excessivamente formal, mas espera-se que um relatório descreva o experimento, apresente resultados obtidos e uma discussão a respeito desses resultados (pra se ver até que ponto o assunto foi entendido...).
