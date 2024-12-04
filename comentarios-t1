@@ -1,0 +1,128 @@
+Os comentários foram feitos lendo o código. Parte é comentário para eu entender
+a organização do código, parte é o que eu achei que talvez não funcione ok.
+Ainda não olhei os relatórios.
+
+jaime
+  com.h com.c
+    registro de terminal
+  esc.h esc.c
+    escalonador
+  proc.h proc.c
+    processo
+  tabela.h tabela.c
+    formatação de métricas
+  so.c
+    trata_interrupcao
+      n_irq[irq]++
+      so_sincroniza (calcula delta_t e atualiza métricas)
+      if (tem_trabalho) despacha else desliga
+    trata_pendencias
+      para cada proc bloqueado
+        trata_bloqueio (desbloqueia se for o caso)
+    escalona
+      se não deve escalonar, retorna
+      se tem proc corrente, recalcula prio
+      se tem proc corrente e estado é exec, insere na fila
+      escolhe o próximo processo
+      so_executa_proc (proc_para, altera métricas, proc_exec, remove da fila,
+        altera proc_corrente, inicializa quantum)
+    trata_irq_relogio
+      i_proc_restante--
+    chamada_le
+      if !com_le_porta bloqueia_proc
+  problemas
+    tá confundindo pid com posição na tabela
+    só tá salvando PC, X, A; o resto é necessário pro t2
+
+diego
+  bloqueio.h - define bloqueio_motivo_id
+  estado.h - define estado_processo_id
+  processo.h - define porta_t, processo_t, estado_processo_id (de novo), 
+    bloqueio_id (== bloqueio_motivo_id), struct proc_metricas
+  so.c
+    define várias globais (pq não colocar em so_t?)
+    trata_interrupcao - chama so_sincroniza (calcula delta_t e soma em todos proc)
+    trata_pendencias
+      para cada processo bloqueado: switch no motivo
+    so_precisa_escalonar
+      atualiza a prioridade do processo corrente se ele está bloqueado
+      verifica se acabou o quantum, e se for o caso:
+        muda estado para pronto, atualiza prio
+    tenta_ler
+      não entendi porque desbloqueia o processo se chamada_sistema != 1
+    coloca_processo_fila
+      tem esta pérola: if (a == 5) b = 5; else b = a;
+    so_escalona
+      se não precisa escalonar, retorna
+      recria fila de processos
+      escolhe o de maior prio
+      inicializa quantum, se mudou o processo
+  geral
+    se vai criar a cada vez, pq manter uma fila?
+    se a fila é recriada a cada vez, perde a ordem, que é o objetivo duma fila
+    só tem um escalonador
+    a inexistência de processo corrente no despacha é situação normal (não 'deu ruim')
+    grep -n malloc so.c
+      153:  so_t *self = malloc(sizeof(*self));
+      922:  processo->metricas = (proc_metricas*)malloc(sizeof(proc_metricas));
+    grep -n free so.c
+      209:  free(self);
+    acho que tem um problema na contagem do número de vezes que um processo vai
+      para cada estado. Por exemplo, na primeira configuração do relatório o P0
+      foi 61 vezes para o estado executando, 3 para bloqueado e 21 para pronto.
+      Cada vez que o processo vai para um estado, deve sair desse estado para ir
+      para outro. Se ele foi 61 vezes para executando, em cada uma dessas 61
+      vezes deve ter ido para um dos outros estados, então tá faltando vezes nos
+      outros estados.
+
+brizzi
+  dispositivos.h - constantes para facilitar id dos terminais
+  list.h,c - lista encadeada
+  proc.h,c - processo, métricas
+  so.c
+    so_trata_pendencia_espera - a espera é por pid, pid não pode ser sinônimo de
+      posição na tabela (a não ser que awaiting_proc seja posição, traduzido do
+      pid por quem inicializou isso)
+    round_robin_type1 tem isso:
+      self->queue = list_append(self->queue, timed_out);
+      if (timed_out != NULL)
+      pode inserir NULL na fila?
+    round_robin_type2 - quanto menor o número, maior a prio
+    so_mata_proc - pid != índice na tabela
+  geral
+    a prioridade dos processos tá sempre diminuindo, acho que tem um problema no
+      cálculo (tá em float?)
+
+jhuan
+  con_pt.h,c - porta de terminal
+  esc.h,c - escalonador, lista de processos
+  process.h,c - processo
+  geral
+    no início, tá executando só o p1, mas deve ter o p2 ou o init pronto com prio
+      maior
+
+luis gustavo
+  so.c - tudo
+    atualiza_prioridade - a + b / 2   !=   (a + b) / 2
+    eu juntaria ha_processos_em_estado com busca_primeiro_processo_pronto
+
+
+geralzão
+  vários tão calculando o tempo em um estado atualizando todos os processos cada
+    vez que o SO executa. Não se necessita de tempos parciais, então dá para
+    atualizar cada processo só quando ele muda de estado, com algo assim:
+      proc_muda_estado(processo p, novo_estado, agora):
+        t_no_estado_atual = agora - p..desde_quando_tou_nesse_estado
+        p..t_acum_no_estado[estado_atual] += t_no_estado_atual
+        p..estado_atual = novo_estado
+        p..desde_quanto_tou_nesse_estado = agora
+  uma forma simples de implementar a fila de processos é colocar um ponteiro prox
+    na própria estrutura do processo. Um processo não pode estar mais de uma vez
+    na fila, nem em mais de uma fila ao mesmo tempo. Pode inclusive fazer uma fila
+    de bloqueados com o mesmo campo, para não ter que procurar entre todos os processos
+    quais estão bloqueados.
+  enquanto um processo está na fila de prontos, sua prioridade não é alterada. Dá
+    para manter a fila de prontos ordenada por prioridade, só mudando a inserção, para
+    inserir na posição correspondente à prioridade. Com isso, o escalonamento circular
+    e por prioridades ficam iguais (exceto pela forma de inserção e pelo cálculo da
+    prioridade quando o processo perde o processador).
