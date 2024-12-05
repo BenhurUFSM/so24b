@@ -106,6 +106,16 @@ luis gustavo
     atualiza_prioridade - a + b / 2   !=   (a + b) / 2
     eu juntaria ha_processos_em_estado com busca_primeiro_processo_pronto
 
+mathias
+  dispositivos.h - constantes para facilitar id dos terminais
+  so.c - todo o resto
+    o pid do processo não deve ser equivalente à posição na tabela
+    trata_le: desbloqueia o processo, mas não faz a leitura
+    calcula_prioridade - a + b / 2   !=   (a + b) / 2
+    so_chamada_le: coloca o valor lido do teclado em um local que será sobrescrito
+      quando executar despacha
+    em alguns locais está acessando diretamente os valores em IRQ_END_*
+
 
 geralzão
   vários tão calculando o tempo em um estado atualizando todos os processos cada
@@ -126,3 +136,28 @@ geralzão
     inserir na posição correspondente à prioridade. Com isso, o escalonamento circular
     e por prioridades ficam iguais (exceto pela forma de inserção e pelo cálculo da
     prioridade quando o processo perde o processador).
+  é comum ter excesso de código nas funções de mais alto nível, e repetição de código
+    em várias dessas funções. Por exemplo, tem isso em um so_chamada_le:
+      self->processo_corrente->estado = BLOQUEADO;
+      self->processo_corrente->razao = LEITURA;
+      self->processo_corrente->metricas.n_estados[self->processo_corrente->estado]++;
+      calcula_prioridade(self, self->processo_corrente);
+      remove_fila(self, self->processo_corrente->process_id);
+    e algo bem parecido em so_chamada_escr etc. Essa forma de programar tem vários problemas; entre eles:
+      tem que escrever mais código
+      tem decisões que se forem alteradas (ou inseridas) mais tarde vão ocasionar
+        mudanças espalhadas por todo o código
+      quando se está escrevendo essa função, tem que ter vários conceitos sendo pensados
+        ao mesmo tempo (o que precisa para bloquear, o que vai ser necessário quando
+	desbloquear, que métricas têm que ser calculadas nessa hora, se agora tem ou
+	não que se preocupar com a prioridade do processo, se tem que mexer em alguma
+	fila, etc).
+      quando se tiver mexendo em métricas (por exemplo), tem que pensar e achar os
+        locais do código onde se fez algo com as métricas, e pensar se falta ou sobra
+	algum
+    é mais fácil quando se está escrevendo isso pensar "mmm, aqui tenho que bloquear o
+      processo", e colocar algo como:
+        bloqueia_processo_corrente(self, LEITURA);
+      e depois, quando for implementar essa função, pensa melhor nas necessidades dela,
+        e se precisa enviar mais argumentos, ou se não foi uma boa ideia, etc
+      
