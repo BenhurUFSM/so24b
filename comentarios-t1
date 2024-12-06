@@ -116,6 +116,25 @@ mathias
       quando executar despacha
     em alguns locais está acessando diretamente os valores em IRQ_END_*
 
+leandro
+  so.h,c tudo
+    já que definiu um tipo para estado_processo_t, poderia declarar estado do processo
+      com esse tipo, né?
+    so_escalona_*: tratar pendências não é tarefa do escalonador! Aliás, não entendi
+      por que tá sendo feito muito do que tá sendo feito no escalonador...
+    so_recupera_estado_da_cpu: pq? se fosse uma aux do despacha para recuperar o estado
+      da cpu, faria mais sentido
+    tá acessando IRQ_END_* fora da rotina de salvar ou recuperar estado da CPU
+
+guilherme einloft
+gabriel
+jonathan+eduardo
+lucas
+joao
+murilo
+lorenzo
+luis antunes
+
 
 geralzão
   vários tão calculando o tempo em um estado atualizando todos os processos cada
@@ -160,4 +179,7 @@ geralzão
         bloqueia_processo_corrente(self, LEITURA);
       e depois, quando for implementar essa função, pensa melhor nas necessidades dela,
         e se precisa enviar mais argumentos, ou se não foi uma boa ideia, etc
-      
+  vários fizeram a tabela de processos com alocação dinâmica. É bom pra treinar, mas
+    podia ser um vetor...
+  tem alguns trabalhos em que parece que a leitura de dados não funciona. Que tal
+    converter e rodar um dos programas exemplo que tem leitura do teclado?
