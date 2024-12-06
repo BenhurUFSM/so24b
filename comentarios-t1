@@ -127,6 +127,16 @@ leandro
     tá acessando IRQ_END_* fora da rotina de salvar ou recuperar estado da CPU
 
 guilherme einloft
+  escalonador.h,c - escalonadores
+  processo.h,c - processo
+  so.c
+    não entendi por que chama esc_remove_processo(0) em so_mata_processo
+    se a tua função so_trata_bloq_entrada fosse só um pouquinho diferente, dava pra
+      usar ela na chamada de leitura:
+        if (!f(p)) bloqueia(p, ENTRADA)
+      e no teste de desbloqueio:
+        if (f(p)) desbloqueia(p)
+
 gabriel
 jonathan+eduardo
 lucas
@@ -162,7 +172,8 @@ geralzão
       self->processo_corrente->metricas.n_estados[self->processo_corrente->estado]++;
       calcula_prioridade(self, self->processo_corrente);
       remove_fila(self, self->processo_corrente->process_id);
-    e algo bem parecido em so_chamada_escr etc. Essa forma de programar tem vários problemas; entre eles:
+    e algo bem parecido em so_chamada_escr etc. Essa forma de programar tem vários
+      problemas; entre eles:
       tem que escrever mais código
       tem decisões que se forem alteradas (ou inseridas) mais tarde vão ocasionar
         mudanças espalhadas por todo o código
