@@ -1,5 +1,7 @@
 # t2 - implementação de memória virtual
 
+**Agora tem [respostas a perguntas](t2/RAP.md)**
+
 ## Descrição
 
 No t1, foi implementado o suporte a processos, mas tem 2 limitações importantes:
