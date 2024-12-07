@@ -182,6 +182,13 @@ lucas
       else set_a(corrente, -1);
 
 joao
+  so.c - tudo
+    quando desbloqueia da leitura, não lê
+    tem acesso solto a IRQ_END_*
+  geral
+    a prioridade não deveria ficar maior que 1 (o t_exec é sempre entre 0 e quantum)
+    merecia ter umas funçõezinhas auxiliares para reduzir a poluição
+
 murilo
 lorenzo
 luis antunes
