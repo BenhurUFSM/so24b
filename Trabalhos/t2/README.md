@@ -1,5 +1,7 @@
 # t2 - implementação de memória virtual
 
+## Tinha um bug no código do T2, não estava gerando o erro de falta de página corretamente. Foram alterados cpu.c e so.c.
+
 **Agora tem [respostas a perguntas](RAP.md)**
 
 ## Descrição
