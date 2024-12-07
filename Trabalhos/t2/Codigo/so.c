@@ -202,6 +202,8 @@ static int so_despacha(so_t *self)
   // t1: se houver processo corrente, coloca o estado desse processo onde ele
   //   será recuperado pela CPU (em IRQ_END_*) e retorna 0, senão retorna 1
   // o valor retornado será o valor de retorno de CHAMAC
+  // passa o processador para modo usuário
+  mem_escreve(self->mem, IRQ_END_erro, ERR_OK);
   if (self->erro_interno) return 1;
   else return 0;
 }
@@ -540,7 +542,7 @@ static int so_carrega_programa_na_memoria_virtual(so_t *self,
   // mapeia as páginas nos quadros
   int quadro = quadro_ini;
   for (int pagina = pagina_ini; pagina <= pagina_fim; pagina++) {
-    tabpag_define_quadro(self->tabpag_global, pagina, quadro);
+    //tabpag_define_quadro(self->tabpag_global, pagina, quadro);
     quadro++;
   }
   self->quadro_livre = quadro;

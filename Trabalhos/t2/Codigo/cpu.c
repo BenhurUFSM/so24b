@@ -494,11 +494,14 @@ bool cpu_interrompe(cpu_t *self, irq_t irq)
   self->modo = supervisor;
 
   // esta é uma CPU boazinha, salva todo o estado interno da CPU no início da memória
+  // self->erro é alterado por poe_mem, copia antes!
+  int erro = self->erro;
+  int complemento = self->complemento;
   poe_mem(self, IRQ_END_PC,          self->PC);
   poe_mem(self, IRQ_END_A,           self->A);
   poe_mem(self, IRQ_END_X,           self->X);
-  poe_mem(self, IRQ_END_erro,        self->erro);
-  poe_mem(self, IRQ_END_complemento, self->complemento);
+  poe_mem(self, IRQ_END_erro,        erro);
+  poe_mem(self, IRQ_END_complemento, complemento);
   poe_mem(self, IRQ_END_modo,        usuario);
 
   // altera o estado da CPU para ela poder executar o tratador de interrupção
@@ -518,16 +521,20 @@ static void cpu_desinterrompe(cpu_t *self)
   // a interrupção retornou
   // recupera o estado da CPU, para que volte a executar o que foi interrompido
   //   quando a interrupção foi atendida
+  
+  // tem que estar em modo supervisor para ler nesses endereços
+  self->modo = supervisor;
   pega_mem(self, IRQ_END_PC,          &self->PC);
   pega_mem(self, IRQ_END_A,           &self->A);
   pega_mem(self, IRQ_END_X,           &self->X);
   // não dá para pegar o erro nem o modo diretamente porque eles não são int
-  int dado;
-  pega_mem(self, IRQ_END_erro,        &dado);
-  self->erro = dado;
+  int erro, modo;
+  pega_mem(self, IRQ_END_erro,        &erro);
   pega_mem(self, IRQ_END_complemento, &self->complemento);
-  pega_mem(self, IRQ_END_modo,        &dado);
-  self->modo = dado;
+  pega_mem(self, IRQ_END_modo,        &modo);
+  self->modo = modo;
+  // coloca o erro por último, porque pode ser alterado por pega_mem
+  self->erro = erro;
 }
 
 // vim: foldmethod=marker
