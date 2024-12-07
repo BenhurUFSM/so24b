@@ -1,5 +1,7 @@
 # so24b
 
+## Tinha um bug no código do T2, não estava gerando o erro de falta de página corretamente. Foram alterados cpu.c e so.c.
+
 Página da disciplina de Sistemas Operacionais, segundo semestre de 2024
 
 ELC1080, DLSC/CT/UFSM
