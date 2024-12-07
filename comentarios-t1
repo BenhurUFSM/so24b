@@ -170,6 +170,17 @@ jonathan+eduardo
       que está entre 0 e 1 e t_exec/quantum, em que t_exec está entre 0 e quantum).
 
 lucas
+  dispositivos.h - constantes para facilitar id dos terminais
+  processo.h,c - processo (get, set), métricas
+  so.c
+    verifica_leitura - só tá vendo se dá para ler, mas não tá lendo!
+    verifica_morte - e se so_busca_processo retornar NULL?
+    tá acessando IRQ_END_* fora das rotinar para salvar e recuperar o estado da cpu
+    cria_proc não tá retornando -1 em A para o processo quando criação falha
+    so_chamada_mata_proc vai chamar set_a do processo NULL:
+      if (corrente != NULL) ...;
+      else set_a(corrente, -1);
+
 joao
 murilo
 lorenzo
