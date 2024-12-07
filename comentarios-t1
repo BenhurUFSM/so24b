@@ -138,6 +138,22 @@ guilherme einloft
         if (f(p)) desbloqueia(p)
 
 gabriel
+  bloqueio.h - defines de tipos de bloqueio
+  cpu - função para cópia da cpu (?)
+  so.h - definição de vários tipos
+  so.c
+    logs controlados por flags
+    a cada escalonamento, refaz a fila de processos (perdendo a ordem da fila).
+      perde um pouco o sentido de ter uma fila!
+    na interrupção de relógio, tá decrementando o quantum do primeiro processo não
+      morto! o processo corrente é quem tava executando, é ele que consumiu CPU.
+    no fim de so_chamada_le, tem um "if (processo->estado == bloqueado)". Em que
+      situação o processo poderia estar bloqueado nesse ponto?
+    na escrita que não bloqueia, o reg A do processo é colocado em 0 para que ele
+      saiba que deu certo, mas quando bloqueia, o reg A não é alterado.
+    na chamada para esperar um processo, se o processo esperado não existir ou já
+      estiver morto (ou for o próprio processo), não deve bloquear.
+
 jonathan+eduardo
 lucas
 joao
