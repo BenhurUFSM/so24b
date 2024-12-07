@@ -224,3 +224,6 @@ geralzão
     podia ser um vetor...
   tem alguns trabalhos em que parece que a leitura de dados não funciona. Que tal
     converter e rodar um dos programas exemplo que tem leitura do teclado?
+
+Mais geralzão ainda, mas a culpa é do prof
+  Me passei na forma de calcular o tempo médio de resposta. Tempo de resposta é o tempo entre o processo ser desbloqueado e ele ser executado. É o tempo em que ele fica no estado pronto depois de desbloquear. Tempo médio de resposta é a média desses tempos. Seria a divisão entre o tempo total no estado pronto pelo número de vezes que esteve no estado pronto se o único motivo de ir para o estado pronto fosse quando é desbloqueado. Não precisa alterar os trabalhos, mas precisa saber que tempo médio de resposta não é o que está sendo calculado.
