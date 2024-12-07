@@ -1,6 +1,6 @@
 # t2 - implementação de memória virtual
 
-**Agora tem [respostas a perguntas](t2/RAP.md)**
+**Agora tem [respostas a perguntas](RAP.md)**
 
 ## Descrição
 
