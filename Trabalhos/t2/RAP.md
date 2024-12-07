@@ -1,5 +1,7 @@
 ## RAP - Respostas a perguntas
 
+Neste arquivo são colocadas respostar a perguntas recebidas por email que forem relacionadas ao t2 e consideradas suficientemente não pessoais.
+
 - Fiquei com dúvidas sobre como trabalhar com a função so_carrega_programa_na_memoria_virtual() e como usar a mmu nela.
 
    Minha sugestão é ter a memória secundária grande o suficiente para conter todos os programas. Dessa forma, quando um programa é carregado, tem lugar pra ele na memória secundária, e a posição de uma página de um processo na memória secundária nunca precisa mudar depois da carga.
