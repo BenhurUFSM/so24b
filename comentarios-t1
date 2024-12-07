@@ -190,6 +190,15 @@ joao
     merecia ter umas funçõezinhas auxiliares para reduzir a poluição
 
 murilo
+  escalonador.h,c - vazios
+  processo.h,c - processo (get, set)
+  so.c
+  geral
+    coloquei esse print no so_despacha:
+      console_printf("desp %d prio %.3f, qt=%d", proc->pid, proc->prioridade, self->quantum);
+      o quantum fica negativo, a prioridade fica enorme (devia ser entre 0 e 1)
+      não está escalonando o processo com maior prioridade (menor número)
+
 lorenzo
 luis antunes
 
