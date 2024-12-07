@@ -33,4 +33,7 @@ Neste arquivo são colocadas respostar a perguntas recebidas por email que forem
 
    O controle da memória secundária, por sua vez, pode ser feito como se fosse infinita: cada programa é colocado na próxima posição livre (tomando o cuidado de iniciar em um múltiplo de tamanho de página para ficar mais fácil de achar), e quando encher não dá mais para criar processo, a memória nunca é liberada.
 
+- Devemos criar uma tabela que mapeia as páginas do processo que não estão na memória principal para a memória secundária?
+
+   Se o programa é carregado de forma contígua na memória secundária, só precisa guardar onde está a primeira página dele na memória secundária e quantas páginas são. Com isso, consegue saber onde está cada página na memória secundária.
 
