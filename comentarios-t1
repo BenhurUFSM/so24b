@@ -155,6 +155,20 @@ gabriel
       estiver morto (ou for o próprio processo), não deve bloquear.
 
 jonathan+eduardo
+  ptable.h,c - tabela de processos
+    check_waiting - ??
+    pid não pode ser índice em um vetor
+  ulist.h,c - lista de espera pela morte de processos
+  so.c
+    o escalona tá chamando priority_mode e standard_mode. é pra ser assim mesmo?
+    load_registers só deveria ser executado pela despacha()
+    faço minha tua pergunta
+        // Por quê?
+        process_set_state(found, ready);
+  geral
+    a prioridade deveria ser entre 0 e 1 (é sempre a média entre a prio anterior
+      que está entre 0 e 1 e t_exec/quantum, em que t_exec está entre 0 e quantum).
+
 lucas
 joao
 murilo
