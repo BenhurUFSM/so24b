@@ -208,7 +208,14 @@ lorenzo
   so.c
 
 luis antunes
-
+  proc.h,c - processo (get, set)
+  so.c
+    tem funções de debug!
+    a + b / (c / 2) != (a + b / c) / 2
+    trata_pendencia_leitura - desbloqueia o processo, mas não faz a leitura
+    não pode atualizar a prioridade a cada interrupção. a prioridade é calculada
+      à partir da parcela do quantum que o processo usou, o que só é conhecido
+      quando ele para de executar.
 
 geralzão
   vários tão calculando o tempo em um estado atualizando todos os processos cada
