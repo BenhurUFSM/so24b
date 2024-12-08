@@ -217,6 +217,12 @@ luis antunes
       à partir da parcela do quantum que o processo usou, o que só é conhecido
       quando ele para de executar.
 
+luana
+  controle_portas.h,c - controle dos terminais
+  escalonador.h,c - escalonadores
+  processo.h,c - processo (get, set)
+  so.c
+
 geralzão
   vários tão calculando o tempo em um estado atualizando todos os processos cada
     vez que o SO executa. Não se necessita de tempos parciais, então dá para
