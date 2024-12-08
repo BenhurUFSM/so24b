@@ -200,6 +200,13 @@ murilo
       não está escalonando o processo com maior prioridade (menor número)
 
 lorenzo
+  controlador.h,c - controle de terminais
+  escalonador.h,c - escalonador e fila de processos
+    achei estranho que o escalonador escolhe o primeiro processo no estado "EXEC_PROC"
+  processo.h,c - processo (pouco mais que get, set)
+  tabela.h,c - formatador para métricas
+  so.c
+
 luis antunes
 
 
