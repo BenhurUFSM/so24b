@@ -37,3 +37,24 @@ Neste arquivo são colocadas respostar a perguntas recebidas por email que forem
 
    Se o programa é carregado de forma contígua na memória secundária, só precisa guardar onde está a primeira página dele na memória secundária e quantas páginas são. Com isso, consegue saber onde está cada página na memória secundária.
 
+- Tou um pouco perdido ainda
+
+   Quando o programa é carregado, é colocado na msec. Por simplicidade, vamos alocar a msec continuamente à partir do início, e nunca liberar. Digamos que nossa página tenha 10 palavras de tamanho, e que a msec já esteja ocupada até o endereço 74, e que temos que carregar um programa que precisa de 27 palavras.
+
+   O programa vai ser carregado à partir da posição 80 (primeiro endereço livre múltiplo do tamanho da página), e vai ocupar até a posição 107. O programa tem 3 páginas, 0, 1 e 2 (a página 2 está incompleta). A página 0 do programa vai para o bloco 8 da msec, a página 1 pro bloco 9 e a página 2 pro bloco 10. Nenhuma das páginas está mapeada na mprim.
+
+   O programa vai ser inicializado com o PC em 0. Quanto o programa executar, o primeiro acesso à memória vai ser ao endereço 0, para buscar a primeira instrução. Isso vai causar uma falha de página (como qualquer outro acesso, porque a tabpag tá vazia).
+   Para tratar essa falha de página, o SO deve primeiro encontrar um quadro vazio na mprim.
+
+   Por simplicidade, vamos supor que exista um quadro vazio. Se não houver, primeiro tem que esvaziar um.
+
+   Digamos que o quadro vazio encontrado pelo SO seja o quadro 15 (começando no endereço 150 com nossa página de tamanho 10). Então, o SO vai ter que copiar o conteúdo da página 0 do processo para o quadro 15. A página 0 tá no bloco 8, então tem que copiar o bloco 8 da msec para o quadro 15 da mprim.
+   Depois de copiar, tem que alterar a configuração da tabpag do processo, para dizer que a página 0 do processo tá no quadro 15.
+   O processo pode então ser liberado para execução.
+
+   Sugiro fazer uma primeira implementação em que sempre tem quadros livres (memória principal grande). Não esqueça que os endereços 0 a 100 da mprim não podem ser usados para conter páginas de processos, porque são usados pelo hardware.
+   Para a primeira implementação, suponha que o acesso à msec seja com velocidade infinita. Depois, simule a velocidade bloqueando o processo por um tempo para cada página que for copiada de/para a msec.
+
+- Voltando na dúvida da "so_copia_str_do_processo". Entendi que caso o dado esteja na memória secundária devo bloquear o processo conforme o tempo do disco. No entanto, supondo que essa função foi executada em uma chamada de sistema de criação de processo, devo realizar a operação de criação neste exato momento ou somente após o desbloqueio do processo, salvando o estado para repetir a chamada de sistema?
+
+   Em um sistema real, o so teria que esperar. No nosso caso, da pra fazer tudo na hora, e bloquear os processos (criador e criatura) pra simular o tempo que teria esperado.
