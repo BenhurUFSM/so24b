@@ -58,3 +58,7 @@ Neste arquivo são colocadas respostar a perguntas recebidas por email que forem
 - Voltando na dúvida da "so_copia_str_do_processo". Entendi que caso o dado esteja na memória secundária devo bloquear o processo conforme o tempo do disco. No entanto, supondo que essa função foi executada em uma chamada de sistema de criação de processo, devo realizar a operação de criação neste exato momento ou somente após o desbloqueio do processo, salvando o estado para repetir a chamada de sistema?
 
    Em um sistema real, o so teria que esperar. No nosso caso, da pra fazer tudo na hora, e bloquear os processos (criador e criatura) pra simular o tempo que teria esperado.
+
+- Tá sempre interrompendo com falha da mesma página, mesmo mapeando a página na tabpag!
+
+   Tem que colocar ERR_OK no erro da CPU no despacha, senão ela interrompe com o erro que tiver, sem executar.
