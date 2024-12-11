@@ -66,7 +66,7 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 |   24 |  3dez  | gerenciamento de entrada e saída
 |   25 |  5dez  | deadlocks
 |   26 | 10dez  | deadlocks
-|   27 | 12dez  | 
+|   27 | 12dez  | conversas de avaliação final
 |      | 17dez  | sexta-feira
 |      | 19dez  | exame
 
@@ -114,5 +114,10 @@ Ver [aqui](https://www.ufsm.br/ementario/disciplinas/ELC1080/).
 | t1    | 18nov | [implementação de processos](/Trabalhos/t1)
 | t2    |       | [gerenciamento de memória](/Trabalhos/t2)
 | final | 11dez | [entrega final](final.md)
+
+**Sobre a entrega final atrasada.** Recebi vários pedidos para atrasar a entrega final.
+Vou fazer um atendimento parcial. Tem que entregar na data combinada, ou a entrega final ou uma entrega parcial, contendo um texto explicando sucintamente o que falta.
+A não entrega será entendida como desistência.
+Para quem conseguir a entrega final, ou os que eu julgar que mesmo faltando o que falta dê para conversar dia 12, coloco na lista do dia 12. Para os outros, tem **um pouco** mais de prazo. Vou ser mais compreensivo com os do dia 12...
 
 
