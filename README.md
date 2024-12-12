@@ -135,8 +135,20 @@ Horário das conversas
 | guilherme                   | leandro,mathias | 12-4   |     |         |
 | leandro                   | guilherme,mathias | 12-5   |     |         |
 | mathias                   | guilherme,leandro | 12-6   |     |         |
+| rafaela                     | thierry    |          |       |             |
+| thierry    | rafaela                     |          |       |             |
+| guilherme    | gabriel                     |          |       |             |
+| gabriel                     | guilherme    |          |       |             |
+| jhuan                     | luana    |          |       |             |
+| luana    | jhuan                     |          |       |             |
+| luis-antunes    | |          |       |             |
+
+
 
 "horário" na tabela tem o dia e o horário ou ordem. O tempo estimado para cada conversa é 15min (entre 5 e 30). Dia 12 pretendo estar na sala (376-anexo B) pelas 10. 
+
+Quem tiver com horário em branco não é dia 12. Aguarde.
+
 <!--
 | Nome                        | grupo | pediu | data  | comentários |
 | :---                        | :---: |  ---: |  ---: | :---        |
