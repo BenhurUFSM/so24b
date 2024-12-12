@@ -120,4 +120,24 @@ Vou fazer um atendimento parcial. Tem que entregar na data combinada, ou a entre
 A não entrega será entendida como desistência.
 Para quem conseguir a entrega final, ou os que eu julgar que mesmo faltando o que falta dê para conversar dia 12, coloco na lista do dia 12. Para os outros, tem **um pouco** mais de prazo. Vou ser mais compreensivo com os do dia 12...
 
+As conversas serão na sala 376-anexo B.
 
+Horário das conversas
+
+| Nome                        | grupo | horário  | nota | comentários |
+| :---                        | :---  | :---     | ---: | :---        |
+| diego                       | luis  | 12-1  |       |             |
+| luis                        | diego,joao | 12-2    |       |             |
+| joao                        | luis,diego | 12-3    |       |             |
+
+"horário" na tabela tem o dia e o horário ou ordem. O tempo estimado para cada conversa é 15min (entre 5 e 30). Dia 12 pretendo estar na sala (376-anexo B) pelas 10. 
+<!--
+| Nome                        | grupo | pediu | data  | comentários |
+| :---                        | :---: |  ---: |  ---: | :---        |
+| diego                       | luis  | 9.25  |       |             |
+| luis                        | diego,joao | 10    |       |             |
+| joao                        | luis | 10    |       |             |
+| jonathan                    | eduardo |       | 17     |             |
+| eduardo                     | jonathan |       | 17     |             |
+
+-->
