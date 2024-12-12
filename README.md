@@ -124,11 +124,17 @@ As conversas serão na sala 376-anexo B.
 
 Horário das conversas
 
-| Nome                        | grupo | horário  | nota | comentários |
-| :---                        | :---  | :---     | ---: | :---        |
-| diego                       | luis  | 12-1  |       |             |
-| luis                        | diego,joao | 12-2    |       |             |
-| joao                        | luis,diego | 12-3    |       |             |
+| Nome                        | grupo      | horário  | nota | comentários |
+| :---                        | :---       | :---     | ---: | :---        |
+| diego                       | luis       | 12-1     |       |             |
+| luis                        | diego,joao | 12-2     |       |             |
+| joao                        | luis,diego | 12-3     |       |             |
+| jonathan                    | eduardo    |          |      |             |
+| eduardo                     | jonathan   |          |      |             |
+| lucas-paire                 |            |          |      |             |
+| guilherme                   | leandro,mathias | 12-4   |     |         |
+| leandro                   | guilherme,mathias | 12-5   |     |         |
+| mathias                   | guilherme,leandro | 12-6   |     |         |
 
 "horário" na tabela tem o dia e o horário ou ordem. O tempo estimado para cada conversa é 15min (entre 5 e 30). Dia 12 pretendo estar na sala (376-anexo B) pelas 10. 
 <!--
@@ -138,6 +144,10 @@ Horário das conversas
 | luis                        | diego,joao | 10    |       |             |
 | joao                        | luis | 10    |       |             |
 | jonathan                    | eduardo |       | 17     |             |
-| eduardo                     | jonathan |       | 17     |             |
+| eduardo                     | jonathan   |        | 17     |             |
+| lucas-paire                 | | 7       |      |             |
+| guilherme                   | leandro,mathias |    |     |         |
+| leandro                   | guilherme,mathias |    |     |         |
+| mathias                   | guilherme,leandro |    |     |         |
 
 -->
