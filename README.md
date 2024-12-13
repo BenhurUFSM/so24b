@@ -124,24 +124,31 @@ As conversas serão na sala 376-anexo B.
 
 Horário das conversas
 
-| Nome                        | grupo      | horário  | nota | comentários |
-| :---                        | :---       | :---     | ---: | :---        |
-| diego                       | luis       | 12-1     | 9,0      |             |
-| luis                        | diego,joao | 12-2     | 9,5   |             |
-| joao                        | luis,diego | 12-3     | 9,5   |             |
-| jonathan                    | eduardo    |          |      |             |
-| eduardo                     | jonathan   |          |      |             |
-| lucas-paire                 |            | 12         |      |             |
-| guilherme                   | leandro,mathias | 12-4   | 9,0    |         |
-| leandro                   | guilherme,mathias | 12-5   | 8,0    |         |
-| mathias                   | guilherme,leandro | 12-6   | 9,0    |         |
-| rafaela                     | thierry    |          |       |             |
-| thierry    | rafaela                     |          |       |             |
-| guilherme    | gabriel                     | 12       |       |             |
-| gabriel                     | guilherme    |          |       |             |
-| jhuan                     | luana    |          |       |             |
-| luana    | jhuan                     |          |       |             |
-| luis-antunes    | |          |       |             |
+| Nome               | grupo      | horário | nota | comentários |
+| :---               | :---       | :---    | ---: | :---        |
+| diego              | luis       | 12-1    | 9,0  |             |
+| luis               | diego,joao | 12-2    | 9,5  |             |
+| joao               | luis,diego | 12-3    | 9,5  |             |
+| guilherme     | leandro,mathias | 12-4    | 9,0  |             |
+| leandro     | guilherme,mathias | 12-5    | 8,0  |             |
+| mathias     | guilherme,leandro | 12-6    | 9,0  |             |
+| lucas-paire        |            | 12      |      |             |
+| guilherme          | gabriel    | 12      |      |             |
+| gabriel            | guilherme  | 13      |      |             |
+| jaime              |            | 13      |      |             |
+| jonathan           | eduardo    |         |      |             |
+| eduardo            | jonathan   |         |      |             |
+| rafaela            | thierry    |         |      |             |
+| thierry            | rafaela    |         |      |             |
+| jhuan              | luana      |         |      |             |
+| luana              | jhuan      |         |      |             |
+| luis-antunes       |            |         |      |             |
+| tobias             | ana        |         |      |             |
+| ana                | tobias     |         |      |             |
+| murilo             | lucas      |         |      |             |
+| lucas              | murilo     |         |      |             |
+| bruno-tavares      |            |         |      |             |
+| lorenzo            |            |         |      |             |
 
 
 **Alguém pode ter a conversa amanhã (13), a partir das 17h? Envia mail.**
