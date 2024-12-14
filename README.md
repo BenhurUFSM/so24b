@@ -132,42 +132,26 @@ Horário das conversas
 | guilherme     | leandro,mathias | 12-4    | 9,0  |             |
 | leandro     | guilherme,mathias | 12-5    | 8,0  |             |
 | mathias     | guilherme,leandro | 12-6    | 9,0  |             |
-| lucas-paire        |            | 12      |      |             |
-| guilherme          | gabriel    | 12      |      |             |
-| gabriel            | guilherme  | 13      |      |             |
-| jaime              |            | 13      |      |             |
-| jonathan           | eduardo    |         |      |             |
-| eduardo            | jonathan   |         |      |             |
-| rafaela            | thierry    |         |      |             |
-| thierry            | rafaela    |         |      |             |
-| jhuan              | luana      |         |      |             |
-| luana              | jhuan      |         |      |             |
-| luis-antunes       |            |         |      |             |
-| tobias             | ana        |         |      |             |
-| ana                | tobias     |         |      |             |
-| murilo             | lucas      |         |      |             |
-| lucas              | murilo     |         |      |             |
-| bruno-tavares      |            |         |      |             |
-| lorenzo            |            |         |      |             |
+| lucas-paire        |            | 12      | 5,0  |             |
+| guilherme          | gabriel    | 12      | 9,5  |             |
+| gabriel            | guilherme  | 13      | 9,0  |             |
+| jaime              |            | 13      | 10,0 |             |
+| jonathan           | eduardo    | 16-1    |      |             |
+| eduardo            | jonathan   | 16-2    |      |             |
+| jhuan              | luana      | 16-3    |      |             |
+| luana              | jhuan      | 16-4    |      |             |
+| lorenzo            |            | 16-5    |      |             |
+| rafaela            | thierry    | 17-1    |      |             |
+| thierry            | rafaela    | 17-2    |      |             |
+| luis-antunes       |            | 17-3    |      |             |
+| tobias             | ana        | 17-4    |      |             |
+| ana                | tobias     | 17-5    |      |             |
+| murilo             | lucas      | 17-6    |      |             |
+| lucas              | murilo     | 17-7    |      |             |
+| bruno-tavares      |            | 17-8    |      |             |
 
+Dia 16 inicia pelas 16h. O 16-5 deve ser às 17h e pouco.
 
-**Segunda-feira (16), à partir das 16h, tem tempo para algumas das conversas. Quem quiser usar esse horário, me mande um mail.**
+Tem bastante gente para dia 17. Vou estar na sala às 9h30, se alguém puder aparecer antes. A ordem é só uma sugestão, se o próximo não estiver na hora, vai o seguinte.
 
-"horário" na tabela tem o dia e o horário ou ordem. O tempo estimado para cada conversa é 15min (entre 5 e 30). Dia 12 pretendo estar na sala (376-anexo B) pelas 10. 
-
-Quem tiver com horário em branco não é dia 12. Aguarde.
-
-<!--
-| Nome                        | grupo | pediu | data  | comentários |
-| :---                        | :---: |  ---: |  ---: | :---        |
-| diego                       | luis  | 9.25  |       |             |
-| luis                        | diego,joao | 10    |       |             |
-| joao                        | luis | 10    |       |             |
-| jonathan                    | eduardo |       | 17     |             |
-| eduardo                     | jonathan   |        | 17     |             |
-| lucas-paire                 | | 7       |      |             |
-| guilherme                   | leandro,mathias |    |     |         |
-| leandro                   | guilherme,mathias |    |     |         |
-| mathias                   | guilherme,leandro |    |     |         |
-
--->
+"horário" na tabela tem o dia e a ordem. O tempo estimado para cada conversa é 15min (entre 5 e 30).
