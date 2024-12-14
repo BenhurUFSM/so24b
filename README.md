@@ -151,7 +151,7 @@ Horário das conversas
 | lorenzo            |            |         |      |             |
 
 
-**Alguém pode ter a conversa amanhã (13), a partir das 17h? Envia mail.**
+**Segunda-feira (16), à partir das 16h, tem tempo para algumas das conversas. Quem quiser usar esse horário, me mande um mail.**
 
 "horário" na tabela tem o dia e o horário ou ordem. O tempo estimado para cada conversa é 15min (entre 5 e 30). Dia 12 pretendo estar na sala (376-anexo B) pelas 10. 
 
