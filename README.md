@@ -153,6 +153,7 @@ Horário das conversas
 Para quem a entrega não foi final na data limite de entrega, enviar um mail até as 12h de domingo, para eu copiar a versão final do github.
 
 Dia 16 inicia pelas 16h. O 16-5 deve ser às 17h e pouco.
+**Vou chegar um pouco atrasado dia 16, mais perto das 16h30.**
 
 Tem bastante gente para dia 17. Vou estar na sala às 9h30, se alguém puder aparecer antes. A ordem é só uma sugestão, se o próximo não estiver na hora, vai o seguinte.
 
