@@ -132,23 +132,25 @@ Horário das conversas
 | guilherme     | leandro,mathias | 12-4    | 9,0  |             |
 | leandro     | guilherme,mathias | 12-5    | 8,0  |             |
 | mathias     | guilherme,leandro | 12-6    | 9,0  |             |
-| lucas-paire        |            | 12      | 5,0  |             |
+| lucas-paire        |            | 12      | 6,0  |             |
 | guilherme          | gabriel    | 12      | 9,5  |             |
 | gabriel            | guilherme  | 13      | 9,0  |             |
 | jaime              |            | 13      | 10,0 |             |
-| jonathan           | eduardo    | 16-1    |      |             |
-| eduardo            | jonathan   | 16-2    |      |             |
-| jhuan              | luana      | 16-3    |      |             |
-| luana              | jhuan      | 16-4    |      |             |
-| lorenzo            |            | 16-5    |      |             |
-| rafaela            | thierry    | 17-1    |      |             |
-| thierry            | rafaela    | 17-2    |      |             |
-| luis-antunes       |            | 17-3    |      |             |
-| tobias             | ana        | 17-4    |      |             |
-| ana                | tobias     | 17-5    |      |             |
-| murilo             | lucas      | 17-6    |      |             |
-| lucas              | murilo     | 17-7    |      |             |
-| bruno-tavares      |            | 17-8    |      |             |
+| jonathan           | eduardo    | 16-1    | 6,0  |             |
+| eduardo            | jonathan   | 16-2    | 6,0  |             |
+| jhuan              | luana      | 16-3    | 8,0  |             |
+| luana              | jhuan      | 16-4    | 8,0  |             |
+| lorenzo            |            | 16-5    | 6,0  |             |
+| rafaela            | thierry    | 17-1    | 6,0  |             |
+| thierry            | rafaela    | 17-2    | 6,0  |             |
+| luis-antunes       |            | 17-3    | 7,0  |             |
+| tobias             | ana        | 17-4    | 8,0  |             |
+| ana                | tobias     | 17-5    | 8,0  |             |
+| murilo             | lucas-both | 17-6    | 6,0  |             |
+| lucas-both         | murilo     | 17-7    | 6,0  |             |
+| bruno-tavares      |            | 17-8    | 6,0  |             |
+
+O exame será dia 19, 10h30, sala 1309, anexo C (a mesma sala das aulas).
 
 Para quem a entrega não foi final na data limite de entrega, enviar um mail até as 12h de domingo, para eu copiar a versão final do github.
 
