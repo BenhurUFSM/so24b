@@ -124,31 +124,34 @@ As conversas serão na sala 376-anexo B.
 
 Horário das conversas
 
-| Nome               | grupo      | horário | nota | comentários |
-| :---               | :---       | :---    | ---: | :---        |
+| Nome               | grupo      | horário | nota | exame |
+| :---               | :---       | :---    | ---: | ---:        |
 | diego              | luis       | 12-1    | 9,0  |             |
 | luis               | diego,joao | 12-2    | 9,5  |             |
 | joao               | luis,diego | 12-3    | 9,5  |             |
 | guilherme     | leandro,mathias | 12-4    | 9,0  |             |
 | leandro     | guilherme,mathias | 12-5    | 8,0  |             |
 | mathias     | guilherme,leandro | 12-6    | 9,0  |             |
-| lucas-paire        |            | 12      | 6,0  |             |
+| lucas-paire        |            | 12      | 6,0  | 8,2         |
 | guilherme          | gabriel    | 12      | 9,5  |             |
 | gabriel            | guilherme  | 13      | 9,0  |             |
 | jaime              |            | 13      | 10,0 |             |
-| jonathan           | eduardo    | 16-1    | 6,0  |             |
-| eduardo            | jonathan   | 16-2    | 6,0  |             |
+| jonathan           | eduardo    | 16-1    | 6,0  | 6,8         |
+| eduardo            | jonathan   | 16-2    | 6,0  | 7,6         |
 | jhuan              | luana      | 16-3    | 8,0  |             |
 | luana              | jhuan      | 16-4    | 8,0  |             |
-| lorenzo            |            | 16-5    | 6,0  |             |
-| rafaela            | thierry    | 17-1    | 6,0  |             |
-| thierry            | rafaela    | 17-2    | 6,0  |             |
+| lorenzo            |            | 16-5    | 6,0  | 3,6         |
+| rafaela            | thierry    | 17-1    | 6,0  | 3,7         |
+| thierry            | rafaela    | 17-2    | 6,0  | 5,0         |
 | luis-antunes       |            | 17-3    | 7,0  |             |
 | tobias             | ana        | 17-4    | 8,0  |             |
 | ana                | tobias     | 17-5    | 8,0  |             |
-| murilo             | lucas-both | 17-6    | 6,0  |             |
-| lucas-both         | murilo     | 17-7    | 6,0  |             |
-| bruno-tavares      |            | 17-8    | 6,0  |             |
+| murilo             | lucas-both | 17-6    | 6,0  | 6,6         |
+| lucas-both         | murilo     | 17-7    | 6,0  | 4,6         |
+| bruno-tavares      |            | 17-8    | 6,0  | 2,0         |
+| larissa            |            |         |      | 2,4         |
+| alan               |            |         |      | 1,3         |
+| bruno-umpierre     |            |         |      | 0,7         |
 
 O exame será dia 19, 10h30, sala 1309, anexo C (a mesma sala das aulas).
 
